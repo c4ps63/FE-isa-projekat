@@ -1,0 +1,4 @@
+.app-container {
+  min-height: calc(100vh - 70px);
+  background: var(--primary-bg);
+}

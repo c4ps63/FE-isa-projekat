@@ -1,0 +1,40 @@
+<div class="home-container">
+  <h1 class="page-title">Najnoviji videi</h1>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Učitavanje...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error" class="videos-grid">
+    <app-video-card *ngFor="let video of videos" [video]="video"></app-video-card>
+  </div>
+
+  <div *ngIf="!loading && videos.length === 0" class="no-videos">
+    <p>Nema dostupnih videa</p>
+  </div>
+
+  <div *ngIf="totalPages > 1" class="pagination">
+    <button 
+      class="btn-pagination" 
+      [disabled]="currentPage === 0"
+      (click)="previousPage()">
+      ← Prethodna
+    </button>
+    
+    <span class="page-info">
+      Strana {{ currentPage + 1 }} od {{ totalPages }}
+    </span>
+    
+    <button 
+      class="btn-pagination" 
+      [disabled]="currentPage === totalPages - 1"
+      (click)="nextPage()">
+      Sledeća →
+    </button>
+  </div>
+</div>

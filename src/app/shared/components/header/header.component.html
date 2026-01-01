@@ -1,0 +1,47 @@
+<header class="header">
+  <div class="header-container">
+    <div class="header-left">
+      <a routerLink="/" class="logo">
+        <span class="logo-icon">▶</span>
+        <span class="logo-text">Jutjubić</span>
+      </a>
+    </div>
+
+    <div class="header-center">
+      <div class="search-bar">
+        <input 
+          type="text" 
+          placeholder="Pretraži videe..." 
+          class="search-input"
+        />
+        <button class="search-button">
+          <span>🔍</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div *ngIf="!isAuthenticated" class="auth-buttons">
+        <button class="btn-outline" (click)="login()">
+          Prijavi se
+        </button>
+        <button class="btn-primary" (click)="register()">
+          Registruj se
+        </button>
+      </div>
+
+      <div *ngIf="isAuthenticated" class="user-menu">
+        <button class="btn-upload">
+          + Upload
+        </button>
+        <div class="avatar-menu">
+          <img 
+            src="assets/default-avatar.png" 
+            alt="User avatar"
+            class="avatar-small"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,75 @@
+<div class="profile-container">
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Učitavanje profila...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && user" class="profile-content">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="avatar-large">
+        <img 
+          [src]="user.avatarUrl || 'assets/default-avatar.png'" 
+          [alt]="user.username"
+        />
+      </div>
+      <div class="profile-info">
+        <h1 class="username">{{ user.username }}</h1>
+        <p class="email">{{ user.email }}</p>
+        <p class="bio" *ngIf="user.bio">{{ user.bio }}</p>
+        <div class="profile-meta">
+          <span class="meta-item">
+            <span class="meta-label">Pridružio se:</span>
+            <span class="meta-value">{{ formatDate(user.createdAt) }}</span>
+          </span>
+          <span class="meta-item">
+            <span class="meta-label">Broj videa:</span>
+            <span class="meta-value">{{ videos.length }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Videos Section -->
+    <div class="videos-section">
+      <h2 class="section-title">Videi korisnika {{ user.username }}</h2>
+
+      <div *ngIf="loadingVideos" class="loading-videos">
+        <div class="spinner-small"></div>
+        <p>Učitavanje videa...</p>
+      </div>
+
+      <div *ngIf="!loadingVideos && videos.length > 0" class="videos-grid">
+        <app-video-card *ngFor="let video of videos" [video]="video"></app-video-card>
+      </div>
+
+      <div *ngIf="!loadingVideos && videos.length === 0" class="no-videos">
+        <p>Ovaj korisnik još nije postavio nijedan video</p>
+      </div>
+
+      <div *ngIf="totalPages > 1" class="pagination">
+        <button 
+          class="btn-pagination" 
+          [disabled]="currentPage === 0"
+          (click)="previousPage()">
+          ← Prethodna
+        </button>
+        
+        <span class="page-info">
+          Strana {{ currentPage + 1 }} od {{ totalPages }}
+        </span>
+        
+        <button 
+          class="btn-pagination" 
+          [disabled]="currentPage === totalPages - 1"
+          (click)="nextPage()">
+          Sledeća →
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

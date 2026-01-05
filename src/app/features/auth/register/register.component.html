@@ -1,0 +1,47 @@
+<div class="register-container">
+  <h2>Registracija</h2>
+  
+  <form (ngSubmit)="register()">
+    
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" [(ngModel)]="registerRequest.email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="username">Korisničko ime *</label>
+      <input type="text" id="username" name="username" [(ngModel)]="registerRequest.username" required>
+    </div>
+
+    <div class="form-group">
+      <label for="firstName">Ime *</label>
+      <input type="text" id="firstName" name="firstName" [(ngModel)]="registerRequest.firstName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Prezime *</label>
+      <input type="text" id="lastName" name="lastName" [(ngModel)]="registerRequest.lastName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Adresa *</label>
+      <input type="text" id="address" name="address" [(ngModel)]="registerRequest.address" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Lozinka *</label>
+      <input type="password" id="password" name="password" [(ngModel)]="registerRequest.password" required>
+    </div>
+
+    <div class="form-group">
+      <label for="repeatedPassword">Potvrdi lozinku *</label>
+      <input type="password" id="repeatedPassword" name="repeatedPassword" [(ngModel)]="registerRequest.repeatedPassword" required>
+    </div>
+
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+    <button type="submit">Registruj se</button>
+  </form>
+
+  <p>Već imaš nalog? <a routerLink="/login">Prijavi se</a></p>
+</div>

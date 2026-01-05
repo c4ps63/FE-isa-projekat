@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { VideoService } from '../../../core/services/video.service';
 import { CommentService } from '../../../core/services/comment.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Video } from '../../../core/models/video.model';
-import { Comment } from '../../../core/models/comment.model';
+
+import { Comment as AppComment } from '../../../core/models/comment.model'; 
+
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 
 @Component({
@@ -14,10 +18,16 @@ import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 })
 export class VideoDetailComponent implements OnInit {
   video: Video | null = null;
-  comments: Comment[] = [];
+  
+  comments: AppComment[] = []; 
+  
   loading = true;
   loadingComments = true;
   error: string | null = null;
+
+  isLoggedIn = false; 
+  newCommentText = '';
+  submittingComment = false;
 
   currentCommentPage = 0;
   totalCommentPages = 0;
@@ -26,10 +36,17 @@ export class VideoDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private videoService: VideoService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.authService.isLoggedIn$.subscribe(loggedIn => {
+      this.isLoggedIn = loggedIn;
+      this.cdr.detectChanges();
+    });
+
     this.route.params.subscribe(params => {
       const videoId = +params['id'];
       this.loadVideo(videoId);
@@ -59,7 +76,11 @@ export class VideoDetailComponent implements OnInit {
 
     this.commentService.getCommentsByVideoId(videoId, this.currentCommentPage, this.commentPageSize).subscribe({
       next: (response) => {
-        this.comments = response.content;
+        if (this.currentCommentPage === 0) {
+            this.comments = response.content; 
+        } else {
+            this.comments = [...this.comments, ...response.content];
+        }
         this.totalCommentPages = response.totalPages;
         this.loadingComments = false;
       },
@@ -75,6 +96,25 @@ export class VideoDetailComponent implements OnInit {
       this.currentCommentPage++;
       this.loadComments(this.video.id);
     }
+  }
+
+  submitComment(): void {
+    if (!this.newCommentText.trim() || !this.video) return;
+
+    this.submittingComment = true;
+
+    this.commentService.createComment(this.video.id, this.newCommentText).subscribe({
+      next: (newComment: AppComment) => {
+        this.comments.unshift(newComment);
+        this.newCommentText = '';
+        this.submittingComment = false;
+      },
+      error: (err: any) => {
+        console.error('Greska pri slanju komentara', err);
+        this.submittingComment = false;
+        alert('Došlo je do greške pri slanju komentara.');
+      }
+    });
   }
 
   formatDate(dateString: string): string {

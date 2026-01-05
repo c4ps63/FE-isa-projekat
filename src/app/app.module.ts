@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/services/auth.interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +12,8 @@ import { VideoDetailComponent } from './features/video/video-detail/video-detail
 import { ProfileComponent } from './features/profile/profile.component';
 import { VideoCardComponent } from './shared/components/video-card/video-card.component';
 import { DurationPipe } from './shared/pipes/duration.pipe';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { LoginComponent } from './features/auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,14 +23,23 @@ import { DurationPipe } from './shared/pipes/duration.pipe';
     VideoDetailComponent,
     ProfileComponent,
     VideoCardComponent,
-    DurationPipe
+    DurationPipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule 
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

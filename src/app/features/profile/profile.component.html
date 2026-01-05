@@ -24,7 +24,7 @@
         <div class="profile-meta">
           <span class="meta-item">
             <span class="meta-label">Pridružio se:</span>
-            <span class="meta-value">{{ formatDate(user.createdAt) }}</span>
+            <span class="meta-value" *ngIf="user.createdAt">{{ formatDate(user.createdAt) }}</span>
           </span>
           <span class="meta-item">
             <span class="meta-label">Broj videa:</span>

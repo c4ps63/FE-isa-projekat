@@ -27,10 +27,11 @@
           <span>{{ formatDate(video.uploadedAt) }}</span>
         </div>
         <div class="meta-right">
-          <button class="btn-like">
-            <span class="icon">❤️</span>
-            {{ video.likeCount }}
-          </button>
+          <button class="btn-like" (click)="likeVideo()">
+          <span class="icon" [class.liked]="isLiked">❤️</span>
+          {{ video.likeCount }}
+        </button>
+
         </div>
       </div>
 

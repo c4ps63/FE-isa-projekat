@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { VideoService } from '../../../core/services/video.service';
 import { CommentService } from '../../../core/services/comment.service';
+import { LikeService } from '../../../core/services/like.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Video } from '../../../core/models/video.model';
 
@@ -26,6 +27,7 @@ export class VideoDetailComponent implements OnInit {
   error: string | null = null;
 
   isLoggedIn = false; 
+  isLiked = false; 
   newCommentText = '';
   submittingComment = false;
 
@@ -37,6 +39,7 @@ export class VideoDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private videoService: VideoService,
     private commentService: CommentService,
+    private likeService: LikeService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -62,7 +65,19 @@ export class VideoDetailComponent implements OnInit {
       next: (video) => {
         this.video = video;
         this.loading = false;
-      },
+
+        if (this.video && this.isLoggedIn) {
+  this.likeService.isLiked(this.video.id).subscribe({
+    next: (res: { liked: boolean }) => {
+      this.isLiked = res.liked;
+    },
+    error: (err: any) => {
+      console.error('Greška pri dohvatanju statusa lajka', err);
+    }
+  });
+}
+
+    },
       error: (err) => {
         this.error = 'Video nije pronađen';
         this.loading = false;
@@ -117,6 +132,32 @@ export class VideoDetailComponent implements OnInit {
     });
   }
 
+likeVideo(): void {
+  if (!this.video) return;
+
+  if (!this.isLoggedIn) {
+    alert('Morate se prvo ulogovati da biste lajkovali video');
+    return;
+  }
+
+  this.likeService.toggleLike(this.video.id).subscribe({
+    next: (res) => {
+      if (res.liked) {
+        this.isLiked = true;
+        this.video!.likeCount++;
+      } else {
+        this.isLiked = false;
+        this.video!.likeCount--;
+      }
+    },
+    error: (err) => {
+      console.error('Greška pri lajkovanju videa', err);
+      alert('Došlo je do greške pri lajkovanju videa.');
+    }
+  });
+}
+
+  
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     const now = new Date();

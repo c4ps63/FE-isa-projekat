@@ -3,10 +3,10 @@
   
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" id="email" formControlName="email" class="form-control">
+      <label for="email">Email ili korisničko ime:</label>
+      <input type="text" id="email" formControlName="email" class="form-control">
       <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="error">
-        Unesite validan email.
+        Ovo polje je obavezno.
       </div>
     </div>
 

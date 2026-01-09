@@ -1,25 +1,32 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit, DoCheck } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
-  isAuthenticated = false; // Kasnije ćeš ovo povezati sa AuthService
+export class HeaderComponent implements OnInit, DoCheck {
+  isAuthenticated = false;
 
-  // Placeholder metode za kasnije
-  login(): void {
-    console.log('Login clicked');
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.checkLoginStatus();
   }
 
-  register(): void {
-    console.log('Register clicked');
+  ngDoCheck(): void {
+    this.checkLoginStatus();
+  }
+
+  private checkLoginStatus(): void {
+    this.isAuthenticated = this.authService.isLoggedIn();
   }
 
   logout(): void {
-    console.log('Logout clicked');
+    this.authService.logout();
+    this.isAuthenticated = false;
+    this.router.navigate(['/login']);
   }
 }

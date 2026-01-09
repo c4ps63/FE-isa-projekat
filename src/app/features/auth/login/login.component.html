@@ -1,0 +1,24 @@
+<div class="login-container">
+  <h2>Prijavi se</h2>
+  
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email ili korisničko ime:</label>
+      <input type="text" id="email" formControlName="email" class="form-control">
+      <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="error">
+        Ovo polje je obavezno.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Lozinka:</label>
+      <input type="password" id="password" formControlName="password" class="form-control">
+    </div>
+
+    <div *ngIf="errorMessage" class="alert-error">
+      {{ errorMessage }}
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Uloguj se</button>
+  </form>
+</div>

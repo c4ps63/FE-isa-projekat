@@ -1,7 +1,7 @@
 <div class="video-card" [routerLink]="['/video', video.id]">
   <div class="thumbnail-container">
     <img 
-      [src]="video.thumbnailUrl || 'assets/default-thumbnail.jpg'" 
+      [src]="'http://localhost:8080/api/videos/thumbnail/' + video.thumbnailUrl" 
       [alt]="video.title"
       class="thumbnail"
     />

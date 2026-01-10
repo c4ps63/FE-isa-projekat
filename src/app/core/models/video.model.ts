@@ -11,6 +11,8 @@ export interface Video {
   likeCount: number;
   uploadedAt: string;
   owner: User;
+  location?: string;
+  tags?: string[];
 }
 
 export interface VideoPage {

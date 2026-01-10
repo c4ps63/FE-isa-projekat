@@ -30,4 +30,7 @@ export class VideoService {
     
     return this.http.get<VideoPage>(`${this.apiUrl}/user/${userId}`, { params });
   }
+  uploadVideo(formData: FormData): Observable<Video> {
+    return this.http.post<Video>(this.apiUrl, formData);
+  }
 }

@@ -68,20 +68,27 @@
 
       <!-- Comment Form - ako je ulogovan -->
       <div *ngIf="isLoggedIn" class="comment-form">
-        <textarea 
-          [(ngModel)]="newCommentText" 
-          placeholder="Dodaj komentar..."
-          rows="3"
-          class="comment-input"
-          [disabled]="submittingComment">
-        </textarea>
-        <button 
-          (click)="submitComment()" 
-          class="btn-submit-comment"
-          [disabled]="!newCommentText.trim() || submittingComment">
-          {{ submittingComment ? 'Slanje...' : 'Komentariši' }}
-        </button>
+        <div class="comment-form-body">
+          <textarea
+            [(ngModel)]="newCommentText"
+            placeholder="Dodaj javni komentar..."
+            rows="1"
+            class="comment-input"
+            [disabled]="submittingComment">
+          </textarea>
+
+          <div class="comment-form-actions">
+            <button
+              class="btn-submit-comment"
+              (click)="submitComment()"
+              [disabled]="!newCommentText.trim() || submittingComment">
+              {{ submittingComment ? 'Slanje...' : 'Komentariši' }}
+            </button>
+          </div>
+        </div>
       </div>
+
+
 
       <!-- Placeholder ako nije ulogovan -->
       <div *ngIf="!isLoggedIn" class="comment-form-placeholder">

@@ -12,6 +12,7 @@ import { VideoDetailComponent } from './features/video/video-detail/video-detail
 import { ProfileComponent } from './features/profile/profile.component';
 import { VideoCardComponent } from './shared/components/video-card/video-card.component';
 import { DurationPipe } from './shared/pipes/duration.pipe';
+import { VideoUploadComponent } from './features/video/video-upload/video-upload.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginComponent } from './features/auth/login/login.component';
 
@@ -24,6 +25,7 @@ import { LoginComponent } from './features/auth/login/login.component';
     ProfileComponent,
     VideoCardComponent,
     DurationPipe,
+    VideoUploadComponent,
     LoginComponent
   ],
   imports: [

@@ -61,20 +61,19 @@ export class VideoUploadComponent {
     const formData = new FormData();
     formData.append('title', this.uploadForm.get('title')?.value);
     formData.append('description', this.uploadForm.get('description')?.value);
-    formData.append('location', this.uploadForm.get('location')?.value);
-    
+    const location = this.uploadForm.get('location')?.value; 
+    if (location) {
+        formData.append('location', location);
+    }
+
     const tagsString = this.uploadForm.get('tags')?.value;
-    const tagsArray = tagsString ? tagsString.split(',').map((tag: string) => tag.trim()) : [];
-    
-    tagsArray.forEach((tag: string) => {
-      formData.append('tags', tag);
-    });
+    if (tagsString) {
+        
+        formData.append('tags', tagsString); 
+    } 
 
     formData.append('videoFile', this.selectedVideoFile);
     formData.append('thumbnailFile', this.selectedThumbnailFile);
-    
-    // hardkod id na 1 radi testa
-    formData.append('userId', '1'); 
 
     this.videoService.uploadVideo(formData).subscribe({
       next: (response) => {
@@ -84,7 +83,13 @@ export class VideoUploadComponent {
       },
       error: (error) => {
         console.error('Greška pri uploadu', error);
-        this.errorMessage = 'Došlo je do greške prilikom uploada. Pokušajte ponovo.';
+        if (error.status === 401 || error.status === 403) {
+             this.errorMessage = 'Niste ulogovani ili je sesija istekla!';
+        } else if (error.status === 413) {
+             this.errorMessage = 'Fajl je prevelik!';
+        } else {
+             this.errorMessage = `Došlo je do greške: ${error.message}`;
+        }
         this.isLoading = false;
       }
     });

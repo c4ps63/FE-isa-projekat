@@ -11,10 +11,10 @@
   <div *ngIf="!loading && video" class="video-content">
     <!-- Video Player -->
     <div class="video-player">
-      <video controls width="100%" [poster]="'http://localhost:8080/api/videos/thumbnail/' + video.thumbnailUrl">
-        <source [src]="'http://localhost:8080/api/videos/stream/' + video.videoUrl" type="video/mp4">
-        Vaš pretraživač ne podržava video tag.
-    </video>
+      <video controls width="100%">
+        <source [src]="'http://localhost:8080/uploads/' + video.videoUrl" type="video/mp4">
+        Vaš browser ne podržava video tag.
+      </video>
     </div>
 
     <!-- Video Info -->

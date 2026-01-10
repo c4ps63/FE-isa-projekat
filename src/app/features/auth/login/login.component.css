@@ -1,47 +1,89 @@
 .login-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  max-width: 420px;
+  margin: 80px auto;
+  padding: 32px;
+  background: var(--secondary-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
 }
 
+.login-container h2 {
+  margin: 0 0 24px 0;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Form */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
 }
 
 .form-control {
   width: 100%;
-  padding: 8px;
-  box-sizing: border-box; 
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--primary-bg);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+.form-control:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
+}
+
+/* Button */
 button {
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 20px;
   border: none;
+  background: var(--accent);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:hover:not(:disabled) {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
 button:disabled {
-  background-color: #ccc;
+  background: var(--border);
+  color: var(--text-secondary);
+  cursor: not-allowed;
 }
 
+/* Errors */
 .error {
-  color: red;
-  font-size: 0.8em;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--error);
 }
 
 .alert-error {
-  color: red;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  padding: 10px;
+  font-size: 13px;
   text-align: center;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error);
 }

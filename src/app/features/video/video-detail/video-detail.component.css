@@ -10,18 +10,13 @@
   color: var(--text-secondary);
 }
 
+/* Spinner uklonjen jer je animacija */
 .spinner {
   width: 48px;
   height: 48px;
   border: 4px solid var(--border);
   border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
   margin: 0 auto 16px;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 .error {
@@ -32,7 +27,6 @@
 /* Video Player */
 .video-player {
   background: #000;
-  border-radius: 12px;
   overflow: hidden;
   margin-bottom: 24px;
 }
@@ -47,7 +41,6 @@
 .video-info-section {
   background: var(--secondary-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
   padding: 24px;
   margin-bottom: 24px;
 }
@@ -81,19 +74,17 @@
   color: white;
   border: none;
   padding: 8px 16px;
-  border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.2s;
+  transition: none; 
 }
 
 .btn-like:hover {
   background: var(--accent-hover);
-  transform: scale(1.05);
 }
 
 .icon {
@@ -116,7 +107,6 @@
 .avatar {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -133,7 +123,7 @@
   color: var(--text-primary);
   margin: 0 0 4px 0;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: none; 
 }
 
 .owner-name:hover {
@@ -165,7 +155,6 @@
 .comments-section {
   background: var(--secondary-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
   padding: 24px;
 }
 
@@ -179,7 +168,6 @@
 .comment-form-placeholder {
   background: var(--primary-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
   padding: 16px;
   text-align: center;
   margin-bottom: 24px;
@@ -194,7 +182,6 @@
 .comment-form-avatar {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -221,7 +208,7 @@
   font-size: 14px;
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.2s;
+  transition: none; 
 }
 
 .comment-input::placeholder {
@@ -243,11 +230,10 @@
   color: white;
   border: none;
   padding: 8px 18px;
-  border-radius: 20px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: none; 
 }
 
 .btn-submit-comment:hover:not(:disabled) {
@@ -260,7 +246,6 @@
   color: var(--text-secondary);
   cursor: not-allowed;
 }
-
 
 .auth-message {
   color: var(--text-secondary);
@@ -277,8 +262,6 @@
   height: 32px;
   border: 3px solid var(--border);
   border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
   margin: 0 auto;
 }
 
@@ -296,7 +279,6 @@
 .comment-avatar {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -323,7 +305,7 @@
   font-weight: 600;
   color: var(--text-primary);
   cursor: pointer;
-  transition: color 0.2s;
+  transition: none; 
 }
 
 .comment-author:hover {
@@ -347,12 +329,11 @@
   color: white;
   border: none;
   padding: 12px 24px;
-  border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   margin-top: 16px;
-  transition: all 0.2s;
+  transition: none; 
 }
 
 .btn-load-more:hover {
@@ -377,29 +358,7 @@
   }
 }
 
-.btn-like {
-  cursor: pointer;
-  padding: 8px 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: white;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-}
-
-.btn-like:hover:not(:disabled) {
-  background: #f0f0f0;
-  border-color: #999;
-}
-
-.btn-like.liked {
-  background: #ffe0e0;
-  border-color: #ff6b6b;
-  color: #ff6b6b;
-}
-
+/* Disabled state btn-like */
 .btn-like:disabled {
   opacity: 0.5;
   cursor: not-allowed;

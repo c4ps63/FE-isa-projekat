@@ -1,16 +1,14 @@
 .video-card {
   background: var(--secondary-bg);
-  border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
   border: 1px solid var(--border);
-  width: 100%; /* Ovo je bitno - puna širina grid ćelije */
+  width: 100%; 
+  transition: none; 
 }
 
 .video-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(123, 44, 191, 0.3);
 }
 
 .thumbnail-container {
@@ -37,7 +35,6 @@
   background: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 2px 6px;
-  border-radius: 4px;
   font-size: 12px;
   font-weight: 600;
 }
@@ -64,7 +61,7 @@
   color: var(--text-secondary);
   margin: 4px 0;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: none; 
 }
 
 .video-owner:hover {

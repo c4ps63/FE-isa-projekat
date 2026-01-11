@@ -4,7 +4,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  /* box-shadow uklonjen */
 }
 
 .header-container {
@@ -26,8 +26,8 @@
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  transition: transform 0.2s;
   -webkit-text-fill-color: var(--text-primary);
+  transition: none; /* animacija uklonjena */
 }
 
 .logo:hover {
@@ -42,8 +42,7 @@
 .logo-text {
   font-size: 24px;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-  -webkit-background-clip: text;
+  /* gradient i -webkit-background-clip uklonjeni jer su vizuelni efekti */
   -webkit-text-fill-color: var(--text-primary);
   background-clip: text;
 }
@@ -58,9 +57,9 @@
   gap: 0;
   background: var(--primary-bg);
   border: 2px solid var(--border);
-  border-radius: 24px;
   overflow: hidden;
-  transition: border-color 0.2s;
+  /* border-radius uklonjen */
+  transition: none; /* animacija uklonjena */
 }
 
 .search-bar:focus-within {
@@ -87,7 +86,7 @@
   padding: 0 20px;
   cursor: pointer;
   font-size: 18px;
-  transition: background 0.2s;
+  transition: none; /* animacija uklonjena */
 }
 
 .search-button:hover {
@@ -108,11 +107,11 @@
   border: 2px solid var(--accent);
   color: var(--accent);
   padding: 8px 20px;
-  border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: none; /* animacija uklonjena */
+  /* border-radius uklonjen */
 }
 
 .btn-outline:hover {
@@ -125,11 +124,11 @@
   border: none;
   color: white;
   padding: 8px 20px;
-  border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: none; /* animacija uklonjena */
+  /* border-radius uklonjen */
 }
 
 .btn-primary:hover {
@@ -148,11 +147,11 @@
   border: none;
   color: white;
   padding: 8px 16px;
-  border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: none; /* animacija uklonjena */
+  /* border-radius uklonjen */
 }
 
 .btn-upload:hover {
@@ -166,9 +165,9 @@
 .avatar-small {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  /* border-radius uklonjen */
   border: 2px solid var(--accent);
-  transition: transform 0.2s;
+  transition: none; /* animacija uklonjena */
 }
 
 .avatar-small:hover {

@@ -4,7 +4,6 @@
   padding: 32px;
   background: var(--secondary-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
 }
 
 .register-container h2 {
@@ -32,17 +31,15 @@ input {
   width: 100%;
   padding: 10px 12px;
   font-size: 14px;
-  border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--primary-bg);
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: none; 
 }
 
 input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
 }
 
 /* Button */
@@ -50,14 +47,13 @@ button {
   width: 100%;
   margin-top: 16px;
   padding: 12px;
-  border-radius: 20px;
   border: none;
   background: var(--accent);
   color: white;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: none; 
 }
 
 button:hover {

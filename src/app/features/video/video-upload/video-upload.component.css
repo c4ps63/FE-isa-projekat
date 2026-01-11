@@ -3,7 +3,6 @@
   margin: 32px auto;
   padding: 32px;
   background-color: var(--secondary-bg);
-  border-radius: 16px;
   border: 1px solid var(--border);
 }
 
@@ -35,10 +34,9 @@ label {
   padding: 12px;
   background-color: var(--primary-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
   color: var(--text-primary);
   font-size: 16px;
-  transition: border-color 0.2s;
+  transition: none; 
 }
 
 .form-input:focus {
@@ -56,7 +54,6 @@ label {
 .file-box {
   background: var(--primary-bg);
   padding: 16px;
-  border-radius: 8px;
   border: 2px dashed var(--border);
   text-align: center;
 }
@@ -80,15 +77,14 @@ label {
   background-color: var(--accent);
   color: white;
   border: none;
-  border-radius: 8px;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  transition: none; 
 }
 
 .btn-submit:hover:not(:disabled) {
@@ -105,23 +101,17 @@ label {
   color: var(--error);
   background: rgba(214, 40, 57, 0.1);
   padding: 12px;
-  border-radius: 8px;
   margin-bottom: 24px;
   text-align: center;
 }
 
+/* Spinner uklonjen animacija */
 .spinner-small {
   width: 20px;
   height: 20px;
   border: 2px solid white;
   border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
   display: inline-block;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 768px) {

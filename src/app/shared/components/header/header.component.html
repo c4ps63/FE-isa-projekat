@@ -1,0 +1,37 @@
+<header class="header">
+  <div class="header-container">
+    
+    <div class="header-left">
+      <a routerLink="/" class="logo">
+        <span class="logo-icon">▶</span>
+        <span class="logo-text">Jutjubić</span>
+      </a>
+    </div>
+
+    <div class="header-right">
+      
+      <div *ngIf="!isAuthenticated" class="auth-buttons">
+        <button class="btn-outline" routerLink="/login">
+          Prijavi se
+        </button>
+        <button class="btn-primary" routerLink="/register">
+          Registruj se
+        </button>
+      </div>
+
+
+      <div *ngIf="isAuthenticated" class="user-menu" style="display: flex; align-items: center; gap: 10px;">
+        <button class="btn-upload" routerLink="/upload">
+          + Upload
+        </button>
+        
+
+        <button class="btn-outline" (click)="logout()" style="margin-left: 5px;">
+          Odjavi se
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</header>

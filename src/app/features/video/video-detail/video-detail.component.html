@@ -1,0 +1,135 @@
+<div class="video-detail-container">
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Učitavanje videa...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && video" class="video-content">
+    <!-- Video Player -->
+    <div class="video-player">
+      <video controls width="100%">
+        <source [src]="'http://localhost:8080/uploads/' + video.videoUrl" type="video/mp4">
+        Vaš browser ne podržava video tag.
+      </video>
+    </div>
+
+    <!-- Video Info -->
+    <div class="video-info-section">
+      <h1 class="video-title">{{ video.title }}</h1>
+      
+      <div class="video-meta">
+        <div class="meta-left">
+          <span>{{ video.viewCount }} pregleda</span>
+          <span>•</span>
+          <span>{{ formatDate(video.uploadedAt) }}</span>
+        </div>
+        <div class="meta-right">
+          <button class="btn-like" (click)="likeVideo()">
+          <span class="icon" [class.liked]="isLiked">❤️</span>
+          {{ video.likeCount }}
+        </button>
+        </div>
+      </div>
+
+      <!-- Owner Info -->
+      <div class="owner-section">
+        <div class="owner-info">
+          <div class="avatar">
+            <img 
+              [src]="video.owner.avatarUrl || 'assets/default-avatar.png'" 
+              [alt]="video.owner.username"
+            />
+          </div>
+          <div class="owner-details">
+            <h3 
+              class="owner-name" 
+              [routerLink]="['/profile', video.owner.username]">
+              {{ video.owner.username }}
+            </h3>
+            <p class="owner-bio" *ngIf="video.owner.bio">{{ video.owner.bio }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="description-section" *ngIf="video.description">
+        <h3>Opis</h3>
+        <p class="description">{{ video.description }}</p>
+      </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+      <h2 class="comments-title">Komentari ({{ comments.length }})</h2>
+
+      <div *ngIf="isLoggedIn" class="comment-form">
+        <div class="comment-form-body">
+          <textarea
+            [(ngModel)]="newCommentText"
+            placeholder="Dodaj javni komentar..."
+            rows="1"
+            class="comment-input"
+            [disabled]="submittingComment">
+          </textarea>
+
+          <div class="comment-form-actions">
+            <button
+              class="btn-submit-comment"
+              (click)="submitComment()"
+              [disabled]="!newCommentText.trim() || submittingComment">
+              {{ submittingComment ? 'Slanje...' : 'Komentariši' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Placeholder ako nije ulogovan -->
+
+      <div *ngIf="!isLoggedIn" class="comment-form-placeholder">
+        <p class="auth-message">Prijavite se da biste ostavili komentar</p>
+      </div>
+
+      <div *ngIf="loadingComments" class="loading-comments">
+        <div class="spinner-small"></div>
+      </div>
+
+      <div *ngIf="!loadingComments" class="comments-list">
+        <div *ngFor="let comment of comments" class="comment-item">
+          <div class="comment-avatar">
+            <img 
+              [src]="comment.author.avatarUrl || 'assets/default-avatar.png'" 
+              [alt]="comment.author.username"
+            />
+          </div>
+          <div class="comment-content">
+            <div class="comment-header">
+              <span 
+                class="comment-author" 
+                [routerLink]="['/profile', comment.author.username]">
+                {{ comment.author.username }}
+              </span>
+              <span class="comment-date">{{ formatDate(comment.createdAt) }}</span>
+            </div>
+            <p class="comment-text">{{ comment.text }}</p>
+          </div>
+        </div>
+
+        <button 
+          *ngIf="currentCommentPage < totalCommentPages - 1"
+          class="btn-load-more"
+          (click)="loadMoreComments()">
+          Učitaj još komentara
+        </button>
+      </div>
+
+      <div *ngIf="!loadingComments && comments.length === 0" class="no-comments">
+        <p>Nema komentara. Budite prvi koji će komentarisati!</p>
+      </div>
+    </div>
+  </div>
+</div>

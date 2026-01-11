@@ -1,0 +1,97 @@
+<div class="upload-container">
+  <h2 class="page-title">Nova Objava</h2>
+
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="upload-form">
+    
+    <div class="form-group">
+      <label for="title">Naslov videa *</label>
+      <input 
+        id="title" 
+        type="text" 
+        formControlName="title" 
+        placeholder="Unesite naslov..."
+        class="form-input"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="description">Opis</label>
+      <textarea 
+        id="description" 
+        formControlName="description" 
+        rows="4" 
+        placeholder="O čemu se radi u videu?"
+        class="form-input"
+      ></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="tags">Tagovi (odvojeni zarezom)</label>
+        <input 
+          id="tags" 
+          type="text" 
+          formControlName="tags" 
+          placeholder="npr. muzika, sport, vesti"
+          class="form-input"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="location">Lokacija (opciono)</label>
+        <input 
+          id="location" 
+          type="text" 
+          formControlName="location" 
+          placeholder="npr. Beograd"
+          class="form-input"
+        >
+      </div>
+    </div>
+
+    <div class="file-uploads">
+      <div class="form-group file-box">
+        <label>Video Fajl (MP4, max 200MB) *</label>
+        <input 
+          type="file" 
+          accept="video/mp4" 
+          (change)="onVideoSelected($event)"
+          class="file-input"
+        >
+        <div class="file-status" *ngIf="selectedVideoFile">
+           ✅ Izabran: {{ selectedVideoFile.name }}
+        </div>
+      </div>
+
+      <div class="form-group file-box">
+        <label>Thumbnail (Slika) *</label>
+        <input 
+          type="file" 
+          accept="image/*" 
+          (change)="onThumbnailSelected($event)"
+          class="file-input"
+        >
+        <div class="file-status" *ngIf="selectedThumbnailFile">
+            ✅ Izabran: {{ selectedThumbnailFile.name }}
+         </div>
+      </div>
+    </div>
+
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <div class="form-actions">
+      <button 
+        type="submit" 
+        class="btn-submit" 
+        [disabled]="uploadForm.invalid || !selectedVideoFile || !selectedThumbnailFile || isLoading"
+      >
+        <span *ngIf="!isLoading">Postavi Objavu</span>
+        <span *ngIf="isLoading" class="spinner-small"></span>
+        <span *ngIf="isLoading"> Upload...</span>
+      </button>
+    </div>
+
+  </form>
+</div>

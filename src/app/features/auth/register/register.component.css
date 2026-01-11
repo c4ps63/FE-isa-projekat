@@ -1,0 +1,93 @@
+.register-container {
+  max-width: 480px;
+  margin: 80px auto;
+  padding: 32px;
+  background: var(--secondary-bg);
+  border: 1px solid var(--border);
+}
+
+.register-container h2 {
+  margin: 0 0 24px 0;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Form */
+.form-group {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  background: var(--primary-bg);
+  color: var(--text-primary);
+  outline: none;
+  transition: none; 
+}
+
+input:focus {
+  border-color: var(--accent);
+}
+
+/* Button */
+button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: none; 
+}
+
+button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+/* Error text */
+.error {
+  margin: 12px 0;
+  font-size: 13px;
+  text-align: center;
+  color: var(--error);
+}
+
+/* Bottom link */
+.register-container p {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.register-container a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-container a:hover {
+  text-decoration: underline;
+}
+
+.register-container input {
+  background-color: white !important;
+  color: black;
+}

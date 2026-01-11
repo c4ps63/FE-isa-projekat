@@ -1,0 +1,18 @@
+<div class="video-card" [routerLink]="['/video', video.id]">
+  <div class="thumbnail-container">
+    <img [src]="'http://localhost:8080/uploads/' + video.thumbnailUrl" alt="Thumbnail" class="thumbnail">
+    <span class="duration">{{ video.duration | duration }}</span>
+  </div>
+  
+  <div class="video-info">
+    <h3 class="video-title">{{ video.title }}</h3>
+    <p class="video-owner" [routerLink]="['/profile', video.owner.username]" (click)="$event.stopPropagation()">
+      {{ video.owner.username }}
+    </p>
+    <div class="video-stats">
+      <span>{{ video.viewCount }} pregleda</span>
+      <span>•</span>
+      <span>{{ video.likeCount }} lajkova</span>
+    </div>
+  </div>
+</div>

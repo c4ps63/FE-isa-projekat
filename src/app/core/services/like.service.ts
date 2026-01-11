@@ -22,5 +22,6 @@ export class LikeService {
    */
   isLiked(videoId: number): Observable<{ liked: boolean }> {
     return this.http.get<{ liked: boolean }>(`${this.apiUrl}/video/${videoId}/is-liked`);
+
   }
 }

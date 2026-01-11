@@ -7,9 +7,7 @@ import { CommentService } from '../../../core/services/comment.service';
 import { LikeService } from '../../../core/services/like.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Video } from '../../../core/models/video.model';
-
 import { Comment as AppComment } from '../../../core/models/comment.model'; 
-
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 
 @Component({
@@ -19,18 +17,14 @@ import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 })
 export class VideoDetailComponent implements OnInit {
   video: Video | null = null;
-  
   comments: AppComment[] = []; 
-  
   loading = true;
   loadingComments = true;
   error: string | null = null;
-
   isLoggedIn = false; 
   isLiked = false; 
   newCommentText = '';
   submittingComment = false;
-
   currentCommentPage = 0;
   totalCommentPages = 0;
   commentPageSize = 5;
@@ -115,7 +109,6 @@ export class VideoDetailComponent implements OnInit {
 
   submitComment(): void {
     if (!this.newCommentText.trim() || !this.video) return;
-
     this.submittingComment = true;
 
     this.commentService.createComment(this.video.id, this.newCommentText).subscribe({
@@ -157,7 +150,6 @@ likeVideo(): void {
   });
 }
 
-  
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     const now = new Date();

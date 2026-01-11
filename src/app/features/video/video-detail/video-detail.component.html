@@ -32,7 +32,6 @@
           <span class="icon" [class.liked]="isLiked">❤️</span>
           {{ video.likeCount }}
         </button>
-
         </div>
       </div>
 
@@ -67,7 +66,6 @@
     <div class="comments-section">
       <h2 class="comments-title">Komentari ({{ comments.length }})</h2>
 
-      <!-- Comment Form - ako je ulogovan -->
       <div *ngIf="isLoggedIn" class="comment-form">
         <div class="comment-form-body">
           <textarea
@@ -90,8 +88,8 @@
       </div>
 
 
-
       <!-- Placeholder ako nije ulogovan -->
+
       <div *ngIf="!isLoggedIn" class="comment-form-placeholder">
         <p class="auth-message">Prijavite se da biste ostavili komentar</p>
       </div>

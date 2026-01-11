@@ -27,6 +27,7 @@
   gap: 8px;
   text-decoration: none;
   transition: transform 0.2s;
+  -webkit-text-fill-color: var(--text-primary);
 }
 
 .logo:hover {
@@ -43,7 +44,7 @@
   font-weight: 700;
   background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: var(--text-primary);
   background-clip: text;
 }
 

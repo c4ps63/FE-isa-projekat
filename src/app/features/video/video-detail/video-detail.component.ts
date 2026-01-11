@@ -22,13 +22,12 @@ export class VideoDetailComponent implements OnInit {
   loadingComments = true;
   error: string | null = null;
   isLoggedIn = false; 
+  isLiked = false; 
   newCommentText = '';
   submittingComment = false;
-  isVideoLiked = false;
-  likeCount = 0;
   currentCommentPage = 0;
   totalCommentPages = 0;
-  commentPageSize = 20;
+  commentPageSize = 5;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,10 +58,20 @@ export class VideoDetailComponent implements OnInit {
     this.videoService.getVideoById(id).subscribe({
       next: (video) => {
         this.video = video;
-        this.likeCount = video.likeCount;
         this.loading = false;
-        this.checkIfVideoIsLiked(id);
-      },
+
+        if (this.video && this.isLoggedIn) {
+  this.likeService.isLiked(this.video.id).subscribe({
+    next: (res: { liked: boolean }) => {
+      this.isLiked = res.liked;
+    },
+    error: (err: any) => {
+      console.error('Greška pri dohvatanju statusa lajka', err);
+    }
+  });
+}
+
+    },
       error: (err) => {
         this.error = 'Video nije pronađen';
         this.loading = false;
@@ -116,44 +125,30 @@ export class VideoDetailComponent implements OnInit {
     });
   }
 
-  checkIfVideoIsLiked(videoId: number): void {
-    if (this.isLoggedIn) {
-      this.likeService.isVideoLikedByUser(videoId).subscribe({
-        next: (isLiked) => {
-          this.isVideoLiked = isLiked;
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Error checking like status:', err);
-        }
-      });
-    }
+likeVideo(): void {
+  if (!this.video) return;
+
+  if (!this.isLoggedIn) {
+    alert('Morate se prvo ulogovati da biste lajkovali video');
+    return;
   }
 
-  toggleLike(): void {
-    if (!this.isLoggedIn) {
-      alert('Molimo da se prijavite da biste lajkovali video');
-      return;
-    }
-
-    if (!this.video) return;
-
-    this.likeService.toggleLike(this.video.id).subscribe({
-      next: (response) => {
-        this.isVideoLiked = !this.isVideoLiked;
-        if (this.isVideoLiked) {
-          this.video!.likeCount++;
-        } else {
-          this.video!.likeCount--;
-        }
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('Error toggling like:', err);
-        alert('Došlo je do greške pri lajkovanju videa');
+  this.likeService.toggleLike(this.video.id).subscribe({
+    next: (res) => {
+      if (res.liked) {
+        this.isLiked = true;
+        this.video!.likeCount++;
+      } else {
+        this.isLiked = false;
+        this.video!.likeCount--;
       }
-    });
-  }
+    },
+    error: (err) => {
+      console.error('Greška pri lajkovanju videa', err);
+      alert('Došlo je do greške pri lajkovanju videa.');
+    }
+  });
+}
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);

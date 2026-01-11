@@ -8,19 +8,6 @@
       </a>
     </div>
 
-    <div class="header-center">
-      <div class="search-bar">
-        <input 
-          type="text" 
-          placeholder="Pretraži videe..." 
-          class="search-input"
-        />
-        <button class="search-button">
-          <span>🔍</span>
-        </button>
-      </div>
-    </div>
-
     <div class="header-right">
       
       <div *ngIf="!isAuthenticated" class="auth-buttons">
@@ -38,13 +25,6 @@
           + Upload
         </button>
         
-        <div class="avatar-menu">
-          <img 
-            src="assets/default-avatar.png" 
-            alt="User avatar"
-            class="avatar-small"
-          />
-        </div>
 
         <button class="btn-outline" (click)="logout()" style="margin-left: 5px;">
           Odjavi se

@@ -28,14 +28,10 @@
           <span>{{ formatDate(video.uploadedAt) }}</span>
         </div>
         <div class="meta-right">
-          <button 
-            class="btn-like"
-            [class.liked]="isVideoLiked"
-            (click)="toggleLike()"
-            [disabled]="!isLoggedIn">
-            <span class="icon" [innerHTML]="isVideoLiked ? '❤️' : '🤍'"></span>
-            {{ video.likeCount }}
-          </button>
+          <button class="btn-like" (click)="likeVideo()">
+          <span class="icon" [class.liked]="isLiked">❤️</span>
+          {{ video.likeCount }}
+        </button>
         </div>
       </div>
 
@@ -71,20 +67,28 @@
       <h2 class="comments-title">Komentari ({{ comments.length }})</h2>
 
       <div *ngIf="isLoggedIn" class="comment-form">
-        <textarea 
-          [(ngModel)]="newCommentText" 
-          placeholder="Dodaj komentar..."
-          rows="3"
-          class="comment-input"
-          [disabled]="submittingComment">
-        </textarea>
-        <button 
-          (click)="submitComment()" 
-          class="btn-submit-comment"
-          [disabled]="!newCommentText.trim() || submittingComment">
-          {{ submittingComment ? 'Slanje...' : 'Komentariši' }}
-        </button>
+        <div class="comment-form-body">
+          <textarea
+            [(ngModel)]="newCommentText"
+            placeholder="Dodaj javni komentar..."
+            rows="1"
+            class="comment-input"
+            [disabled]="submittingComment">
+          </textarea>
+
+          <div class="comment-form-actions">
+            <button
+              class="btn-submit-comment"
+              (click)="submitComment()"
+              [disabled]="!newCommentText.trim() || submittingComment">
+              {{ submittingComment ? 'Slanje...' : 'Komentariši' }}
+            </button>
+          </div>
+        </div>
       </div>
+
+
+      <!-- Placeholder ako nije ulogovan -->
 
       <div *ngIf="!isLoggedIn" class="comment-form-placeholder">
         <p class="auth-message">Prijavite se da biste ostavili komentar</p>

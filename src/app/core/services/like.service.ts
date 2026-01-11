@@ -10,15 +10,18 @@ export class LikeService {
 
   constructor(private http: HttpClient) {}
 
-  toggleLike(videoId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/toggle/${videoId}`, {});
+  /**
+   * Toggle like za dati video
+   */
+  toggleLike(videoId: number): Observable<{ liked: boolean }> {
+    return this.http.post<{ liked: boolean }>(`${this.apiUrl}/video/${videoId}`, {});
   }
 
-  isVideoLikedByUser(videoId: number): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiUrl}/is-liked/${videoId}`);
-  }
+  /**
+   * Provjera da li je korisnik lajkovao dati video
+   */
+  isLiked(videoId: number): Observable<{ liked: boolean }> {
+    return this.http.get<{ liked: boolean }>(`${this.apiUrl}/video/${videoId}/is-liked`);
 
-  getLikeCount(videoId: number): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/count/${videoId}`);
   }
 }

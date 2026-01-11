@@ -33,7 +33,7 @@ export class VideoDetailComponent implements OnInit {
 
   currentCommentPage = 0;
   totalCommentPages = 0;
-  commentPageSize = 20;
+  commentPageSize = 5;
 
   constructor(
     private route: ActivatedRoute,

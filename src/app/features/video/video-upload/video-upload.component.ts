@@ -12,7 +12,8 @@ export class VideoUploadComponent {
   uploadForm: FormGroup;
   selectedVideoFile: File | null = null;
   selectedThumbnailFile: File | null = null;
-  
+  videoDuration: number = 0;
+
   isLoading = false;
   errorMessage = '';
 
@@ -39,6 +40,15 @@ export class VideoUploadComponent {
       }
       this.selectedVideoFile = file;
       this.errorMessage = '';
+
+      const video = document.createElement('video');
+      video.preload = 'metadata';
+      video.onloadedmetadata = () => {
+        window.URL.revokeObjectURL(video.src);
+        this.videoDuration = Math.floor(video.duration);
+        console.log("Detektovano trajanje videa: " + this.videoDuration + " sekundi");
+      };
+      video.src = URL.createObjectURL(file);
     }
   }
 
@@ -61,6 +71,7 @@ export class VideoUploadComponent {
     const formData = new FormData();
     formData.append('title', this.uploadForm.get('title')?.value);
     formData.append('description', this.uploadForm.get('description')?.value);
+
     const location = this.uploadForm.get('location')?.value; 
     if (location) {
         formData.append('location', location);
@@ -72,6 +83,7 @@ export class VideoUploadComponent {
         formData.append('tags', tagsString); 
     } 
 
+    formData.append('duration', this.videoDuration.toString());
     formData.append('videoFile', this.selectedVideoFile);
     formData.append('thumbnailFile', this.selectedThumbnailFile);
 

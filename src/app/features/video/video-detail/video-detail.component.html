@@ -28,8 +28,12 @@
           <span>{{ formatDate(video.uploadedAt) }}</span>
         </div>
         <div class="meta-right">
-          <button class="btn-like">
-            <span class="icon">❤️</span>
+          <button 
+            class="btn-like"
+            [class.liked]="isVideoLiked"
+            (click)="toggleLike()"
+            [disabled]="!isLoggedIn">
+            <span class="icon" [innerHTML]="isVideoLiked ? '❤️' : '🤍'"></span>
             {{ video.likeCount }}
           </button>
         </div>
@@ -66,7 +70,6 @@
     <div class="comments-section">
       <h2 class="comments-title">Komentari ({{ comments.length }})</h2>
 
-      <!-- Comment Form - ako je ulogovan -->
       <div *ngIf="isLoggedIn" class="comment-form">
         <textarea 
           [(ngModel)]="newCommentText" 
@@ -83,7 +86,6 @@
         </button>
       </div>
 
-      <!-- Placeholder ako nije ulogovan -->
       <div *ngIf="!isLoggedIn" class="comment-form-placeholder">
         <p class="auth-message">Prijavite se da biste ostavili komentar</p>
       </div>

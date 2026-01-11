@@ -4,11 +4,10 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { VideoService } from '../../../core/services/video.service';
 import { CommentService } from '../../../core/services/comment.service';
+import { LikeService } from '../../../core/services/like.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Video } from '../../../core/models/video.model';
-
 import { Comment as AppComment } from '../../../core/models/comment.model'; 
-
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 
 @Component({
@@ -18,17 +17,15 @@ import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 })
 export class VideoDetailComponent implements OnInit {
   video: Video | null = null;
-  
   comments: AppComment[] = []; 
-  
   loading = true;
   loadingComments = true;
   error: string | null = null;
-
   isLoggedIn = false; 
   newCommentText = '';
   submittingComment = false;
-
+  isVideoLiked = false;
+  likeCount = 0;
   currentCommentPage = 0;
   totalCommentPages = 0;
   commentPageSize = 20;
@@ -37,6 +34,7 @@ export class VideoDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private videoService: VideoService,
     private commentService: CommentService,
+    private likeService: LikeService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -61,7 +59,9 @@ export class VideoDetailComponent implements OnInit {
     this.videoService.getVideoById(id).subscribe({
       next: (video) => {
         this.video = video;
+        this.likeCount = video.likeCount;
         this.loading = false;
+        this.checkIfVideoIsLiked(id);
       },
       error: (err) => {
         this.error = 'Video nije pronađen';
@@ -100,7 +100,6 @@ export class VideoDetailComponent implements OnInit {
 
   submitComment(): void {
     if (!this.newCommentText.trim() || !this.video) return;
-
     this.submittingComment = true;
 
     this.commentService.createComment(this.video.id, this.newCommentText).subscribe({
@@ -113,6 +112,45 @@ export class VideoDetailComponent implements OnInit {
         console.error('Greska pri slanju komentara', err);
         this.submittingComment = false;
         alert('Došlo je do greške pri slanju komentara.');
+      }
+    });
+  }
+
+  checkIfVideoIsLiked(videoId: number): void {
+    if (this.isLoggedIn) {
+      this.likeService.isVideoLikedByUser(videoId).subscribe({
+        next: (isLiked) => {
+          this.isVideoLiked = isLiked;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error checking like status:', err);
+        }
+      });
+    }
+  }
+
+  toggleLike(): void {
+    if (!this.isLoggedIn) {
+      alert('Molimo da se prijavite da biste lajkovali video');
+      return;
+    }
+
+    if (!this.video) return;
+
+    this.likeService.toggleLike(this.video.id).subscribe({
+      next: (response) => {
+        this.isVideoLiked = !this.isVideoLiked;
+        if (this.isVideoLiked) {
+          this.video!.likeCount++;
+        } else {
+          this.video!.likeCount--;
+        }
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error toggling like:', err);
+        alert('Došlo je do greške pri lajkovanju videa');
       }
     });
   }

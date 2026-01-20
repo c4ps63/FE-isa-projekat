@@ -15,6 +15,7 @@ import { DurationPipe } from './shared/pipes/duration.pipe';
 import { VideoUploadComponent } from './features/video/video-upload/video-upload.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginComponent } from './features/auth/login/login.component';
+import { MapComponent } from './shared/components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LoginComponent } from './features/auth/login/login.component';
     VideoCardComponent,
     DurationPipe,
     VideoUploadComponent,
-    LoginComponent
+    LoginComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

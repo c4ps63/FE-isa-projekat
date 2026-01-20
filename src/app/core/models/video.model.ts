@@ -13,6 +13,8 @@ export interface Video {
   owner: User;
   location?: string;
   tags?: string[];
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface VideoPage {

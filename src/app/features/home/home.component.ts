@@ -11,7 +11,7 @@ import { VideoCardComponent } from '../../shared/components/video-card/video-car
 })
 export class HomeComponent implements OnInit {
   videos: Video[] = [];
-  loading = true;
+  loading = true; 
   error: string | null = null;
   
   currentPage = 0;
@@ -21,7 +21,15 @@ export class HomeComponent implements OnInit {
   constructor(private videoService: VideoService) {}
 
   ngOnInit(): void {
-    this.loadVideos();
+
+  }
+
+  updateVideoList(videosFromMap: Video[]) {
+    this.loading = false;
+    this.videos = videosFromMap;
+    this.totalPages = 1; 
+    if (this.videos.length === 0) {
+    }
   }
 
   loadVideos(): void {

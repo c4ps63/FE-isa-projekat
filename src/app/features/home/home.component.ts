@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   currentPage = 0;
   totalPages = 0;
   pageSize = 12;
+  selectedFilter: string = 'ALL';
 
   constructor(private videoService: VideoService) {}
 
@@ -32,11 +33,17 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  onFilterChange(event: any): void {
+    this.selectedFilter = event.target.value;
+    this.currentPage = 0;
+    this.loadVideos();
+  }
+
   loadVideos(): void {
     this.loading = true;
     this.error = null;
 
-    this.videoService.getAllVideos(this.currentPage, this.pageSize).subscribe({
+    this.videoService.getAllVideos(this.currentPage, this.pageSize, this.selectedFilter).subscribe({
       next: (response) => {
         this.videos = response.content;
         this.totalPages = response.totalPages;

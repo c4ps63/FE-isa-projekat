@@ -5,7 +5,20 @@
     <app-map (videosFound)="updateVideoList($event)"></app-map>
   </div>
   
-  <h1 class="page-title">Najnoviji videi (u vidljivom delu mape)</h1>
+  <div class="section-header">
+    <h1 class="page-title">Najnoviji videi</h1>
+    
+    <div class="filter-container">
+      <select 
+        id="timeFilter" 
+        class="filter-select" 
+        (change)="onFilterChange($event)">
+        <option value="ALL">Svo vreme</option>
+        <option value="LAST_30_DAYS">Poslednjih 30 dana</option>
+        <option value="THIS_YEAR">Tekuća godina</option>
+      </select>
+    </div>
+  </div>
   
   <div *ngIf="loading" class="loading">
     <div class="spinner"></div>

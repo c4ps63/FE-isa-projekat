@@ -4,11 +4,54 @@
   padding: 32px 24px;
 }
 
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 .page-title {
   font-size: 32px;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 32px;
+  margin-bottom: 0px;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+}
+
+.filter-select {
+  background-color: var(--secondary-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 10px 10px;
+  padding-right: 40px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  transition: border-color 0.2s;
+}
+
+.filter-select:hover {
+  background-color: var(--border);
+  border-color: var(--accent);
+}
+
+.filter-select:focus {
+  border-color: var(--accent);
+}
+
+.filter-select option {
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+  padding: 10px;
 }
 
 .map-section {
@@ -105,5 +148,13 @@
   
   .map-section {
     height: 400px;
+  }
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filter-select {
+    width: 100%;
   }
 }

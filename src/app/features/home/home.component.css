@@ -11,6 +11,18 @@
   margin-bottom: 32px;
 }
 
+.map-section {
+  width: 100%;
+  height: 500px;          
+  margin-bottom: 40px;
+  border-radius: 12px;
+  overflow: hidden; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background-color: #eee;  
+  position: relative;
+  z-index: 1;
+}
+
 .videos-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
@@ -71,7 +83,6 @@
   font-size: 16px;
 }
 
-/* Responsive */
 @media (max-width: 1200px) {
   .videos-grid {
     grid-template-columns: repeat(2, 1fr); 
@@ -90,5 +101,9 @@
   
   .home-container {
     padding: 24px 16px;
+  }
+  
+  .map-section {
+    height: 400px;
   }
 }

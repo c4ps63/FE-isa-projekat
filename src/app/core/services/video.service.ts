@@ -11,10 +11,11 @@ export class VideoService {
 
   constructor(private http: HttpClient) {}
 
-  getAllVideos(page: number = 0, size: number = 12): Observable<VideoPage> {
+  getAllVideos(page: number = 0, size: number = 12, filter: string = 'ALL'): Observable<VideoPage> {
     const params = new HttpParams()
       .set('page', page.toString())
-      .set('size', size.toString());
+      .set('size', size.toString())
+      .set('filter', filter);
     
     return this.http.get<VideoPage>(this.apiUrl, { params });
   }

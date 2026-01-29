@@ -30,6 +30,30 @@ export class VideoUploadComponent {
     });
   }
 
+  private parseAddress(fullAddress: string): { street: string, number: string, city: string } {
+    // Regex objašnjenje:
+    // ^(.*?)\s+       -> Grupa 1 (Ulica): Bilo šta od početka do prvog razmaka ispred broja
+    // (\d+[a-zA-Z]?)  -> Grupa 2 (Broj): Cifre i opciono jedno slovo (npr. 12 ili 12a)
+    // [,\s]+          -> Separator: Zarez ili razmak
+    // (.*)$           -> Grupa 3 (Grad): Sve ostalo do kraja
+    const regex = /^(.*?)\s+(\d+[a-zA-Z]?)[,\s]+(.*)$/;
+    const match = fullAddress.match(regex);
+
+    if (match) {
+      return {
+        street: match[1].trim(),
+        number: match[2].trim(),
+        city: match[3].trim()
+      };
+    }
+
+    return {
+      street: '',
+      number: '',
+      city: fullAddress.trim()
+    };
+  }
+
   onVideoSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -72,9 +96,18 @@ export class VideoUploadComponent {
     formData.append('title', this.uploadForm.get('title')?.value);
     formData.append('description', this.uploadForm.get('description')?.value);
 
-    const location = this.uploadForm.get('location')?.value; 
-    if (location) {
-        formData.append('location', location);
+    const rawLocation = this.uploadForm.get('location')?.value; 
+    if (rawLocation) {
+        const parsed = this.parseAddress(rawLocation);
+        formData.append('street', parsed.street);
+        formData.append('number', parsed.number);
+        formData.append('city', parsed.city);
+        
+        console.log('Parsirana lokacija:', parsed); //debug
+    } else {
+        formData.append('street', '');
+        formData.append('number', '');
+        formData.append('city', '');
     }
 
     const tagsString = this.uploadForm.get('tags')?.value;

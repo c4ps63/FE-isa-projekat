@@ -18,7 +18,7 @@ export class LikeService {
   }
 
   /**
-   * Provjera da li je korisnik lajkovao dati video
+   * Provera da li je korisnik lajkovao dati video
    */
   isLiked(videoId: number): Observable<{ liked: boolean }> {
     return this.http.get<{ liked: boolean }>(`${this.apiUrl}/video/${videoId}/is-liked`);

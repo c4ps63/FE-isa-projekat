@@ -25,10 +25,10 @@ export class MapService {
   }
 
   getClusteredVideosByViewport(
-    minLat: number, maxLat: number, minLng: number, maxLng: number, zoom: number
+    minLat: number, maxLat: number, minLng: number, maxLng: number, zoom: number, filter: string = 'ALL'
   ): Observable<TileCluster[]> {
     return this.http.get<TileCluster[]>(
-      `${this.apiUrl}/viewport-clustered?minLat=${minLat}&maxLat=${maxLat}&minLng=${minLng}&maxLng=${maxLng}&zoom=${zoom}`
+      `${this.apiUrl}/viewport-clustered?minLat=${minLat}&maxLat=${maxLat}&minLng=${minLng}&maxLng=${maxLng}&zoom=${zoom}&filter=${filter}`
     );
   }
 

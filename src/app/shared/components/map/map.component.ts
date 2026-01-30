@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, Output, EventEmitter, OnDestroy, Input } from '@angular/core';
 import * as L from 'leaflet';
 import { MapService } from '../../../core/services/map.service';
 import { Video } from '../../../core/models/video.model';
@@ -27,9 +27,16 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private destroy$ = new Subject<void>();
   private currentRequest: Subscription | null = null;
 
+  @Input() filter: string = 'ALL';
   @Output() videosFound = new EventEmitter<Video[]>();
 
   constructor(private mapService: MapService) { }
+
+  // Javna metoda za reload sa novim filterom
+  reloadWithFilter(newFilter: string): void {
+    this.filter = newFilter;
+    this.triggerLoadTiles();
+  }
 
   ngAfterViewInit(): void {
     this.initMap();
@@ -90,10 +97,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const minLng = bounds.getWest();
     const maxLng = bounds.getEast();
 
-    console.log(`Loading viewport: zoom=${zoom}, bounds=[${minLat.toFixed(4)}, ${maxLat.toFixed(4)}, ${minLng.toFixed(4)}, ${maxLng.toFixed(4)}]`);
+    console.log(`Loading viewport: zoom=${zoom}, filter=${this.filter}, bounds=[${minLat.toFixed(4)}, ${maxLat.toFixed(4)}, ${minLng.toFixed(4)}, ${maxLng.toFixed(4)}]`);
 
     this.currentRequest = this.mapService.getClusteredVideosByViewport(
-      minLat, maxLat, minLng, maxLng, zoom
+      minLat, maxLat, minLng, maxLng, zoom, this.filter
     ).subscribe({
       next: (clusters: TileCluster[]) => {
         console.log(`Received ${clusters.length} clusters`);

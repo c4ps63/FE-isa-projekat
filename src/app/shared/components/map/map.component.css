@@ -11,3 +11,18 @@
   height: 100%;
   z-index: 1;
 }
+
+/* Klaster marker stilovi */
+:host ::ng-deep .cluster-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+:host ::ng-deep .cluster-marker div {
+  transition: transform 0.2s ease;
+}
+
+:host ::ng-deep .cluster-marker:hover div {
+  transform: scale(1.1);
+}
+

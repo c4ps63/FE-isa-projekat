@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VideoService } from '../../core/services/video.service';
 import { Video } from '../../core/models/video.model';
 import { VideoCardComponent } from '../../shared/components/video-card/video-card.component';
+import { MapComponent } from '../../shared/components/map/map.component';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,12 @@ import { VideoCardComponent } from '../../shared/components/video-card/video-car
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild(MapComponent) mapComponent!: MapComponent;
+
   videos: Video[] = [];
-  loading = true; 
+  loading = true;
   error: string | null = null;
-  
+
   currentPage = 0;
   totalPages = 0;
   pageSize = 12;
@@ -36,7 +39,12 @@ export class HomeComponent implements OnInit {
   onFilterChange(event: any): void {
     this.selectedFilter = event.target.value;
     this.currentPage = 0;
-    this.loadVideos();
+    this.loading = true;
+    // Umjesto loadVideos(), pozivamo mapu da reloadira sa novim filterom
+    // Mapa će emitovati filtrirane videe iz viewport-a
+    if (this.mapComponent) {
+      this.mapComponent.reloadWithFilter(this.selectedFilter);
+    }
   }
 
   loadVideos(): void {

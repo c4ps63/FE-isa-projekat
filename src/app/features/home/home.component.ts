@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VideoService } from '../../core/services/video.service';
 import { Video } from '../../core/models/video.model';
 import { VideoCardComponent } from '../../shared/components/video-card/video-card.component';
+import { MapComponent } from '../../shared/components/map/map.component';
 
 @Component({
   selector: 'app-home',
@@ -10,25 +11,47 @@ import { VideoCardComponent } from '../../shared/components/video-card/video-car
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild(MapComponent) mapComponent!: MapComponent;
+
   videos: Video[] = [];
   loading = true;
   error: string | null = null;
-  
+
   currentPage = 0;
   totalPages = 0;
   pageSize = 12;
+  selectedFilter: string = 'ALL';
 
   constructor(private videoService: VideoService) {}
 
   ngOnInit(): void {
-    this.loadVideos();
+
+  }
+
+  updateVideoList(videosFromMap: Video[]) {
+    this.loading = false;
+    this.videos = videosFromMap;
+    this.totalPages = 1; 
+    if (this.videos.length === 0) {
+    }
+  }
+
+  onFilterChange(event: any): void {
+    this.selectedFilter = event.target.value;
+    this.currentPage = 0;
+    this.loading = true;
+    // Umjesto loadVideos(), pozivamo mapu da reloadira sa novim filterom
+    // Mapa će emitovati filtrirane videe iz viewport-a
+    if (this.mapComponent) {
+      this.mapComponent.reloadWithFilter(this.selectedFilter);
+    }
   }
 
   loadVideos(): void {
     this.loading = true;
     this.error = null;
 
-    this.videoService.getAllVideos(this.currentPage, this.pageSize).subscribe({
+    this.videoService.getAllVideos(this.currentPage, this.pageSize, this.selectedFilter).subscribe({
       next: (response) => {
         this.videos = response.content;
         this.totalPages = response.totalPages;

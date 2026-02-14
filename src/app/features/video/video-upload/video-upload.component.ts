@@ -26,7 +26,9 @@ export class VideoUploadComponent {
       title: ['', [Validators.required, Validators.maxLength(200)]],
       description: ['', [Validators.maxLength(2000)]],
       tags: [''], 
-      location: ['']
+      location: [''],
+      isScheduled: [false],
+      scheduledTime: ['']
     });
   }
 
@@ -119,6 +121,18 @@ export class VideoUploadComponent {
     formData.append('duration', this.videoDuration.toString());
     formData.append('videoFile', this.selectedVideoFile);
     formData.append('thumbnailFile', this.selectedThumbnailFile);
+
+    const isScheduled = this.uploadForm.get('isScheduled')?.value;
+    const scheduledTime = this.uploadForm.get('scheduledTime')?.value;
+
+    if (isScheduled) {
+      formData.append('isScheduled', 'true');
+      if (scheduledTime) {
+        formData.append('scheduledTime', scheduledTime);
+      }
+    } else {
+      formData.append('isScheduled', 'false');
+    }
 
     this.videoService.uploadVideo(formData).subscribe({
       next: (response) => {

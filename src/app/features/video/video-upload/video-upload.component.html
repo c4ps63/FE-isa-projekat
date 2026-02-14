@@ -50,6 +50,24 @@
       </div>
     </div>
 
+    <div class="form-group schedule-box" style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+        <input type="checkbox" id="isScheduled" formControlName="isScheduled" style="width: 20px; height: 20px; cursor: pointer;">
+        <label for="isScheduled" style="font-weight: bold; cursor: pointer; margin: 0;">Zakaži premijeru (Live Stream)</label>
+      </div>
+      
+      <div *ngIf="uploadForm.get('isScheduled')?.value" class="schedule-input">
+        <label for="scheduledTime">Datum i vreme početka:</label>
+        <input 
+          id="scheduledTime" 
+          type="datetime-local" 
+          formControlName="scheduledTime"
+          class="form-input"
+        >
+        <small style="color: #666; display: block; margin-top: 5px;">Video neće biti dostupan za gledanje pre ovog vremena.</small>
+      </div>
+    </div>
+
     <div class="file-uploads">
       <div class="form-group file-box">
         <label>Video Fajl (MP4, max 200MB) *</label>

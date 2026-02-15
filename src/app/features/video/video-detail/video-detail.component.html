@@ -161,4 +161,11 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="!loading && video && video.streamingStatus === 'LIVE'" class="chat-sidebar">
+    <app-chat *ngIf="showChat" [videoId]="video.id"></app-chat>
+    <div *ngIf="!isLoggedIn" class="chat-login-prompt">
+      <p>Prijavite se da biste učestvovali u chatu</p>
+    </div>
+  </div>
 </div>

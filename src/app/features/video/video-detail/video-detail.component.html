@@ -9,15 +9,50 @@
   </div>
 
   <div *ngIf="!loading && video" class="video-content">
-    <!-- Video Player -->
-    <div class="video-player">
-      <video controls width="100%">
-        <source [src]="'http://localhost:8080/uploads/' + video.videoUrl" type="video/mp4">
-        Vaš browser ne podržava video tag.
-      </video>
-    </div>
+    
+    <div class="video-player-wrapper" style="position: relative; background: #000; width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center;">
+      
+      <div *ngIf="video.streamingStatus === 'WAITING'" class="video-placeholder waiting" style="position: relative; width: 100%; height: 100%;">
+        <img [src]="'http://localhost:8080/uploads/' + video.thumbnailUrl" alt="Thumbnail" style="width: 100%; height: auto; opacity: 0.5;">
+        <div class="overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
+          <h2 style="font-size: 2em; text-transform: uppercase; background: rgba(0,0,0,0.7); padding: 10px;">Premijera Uskoro</h2>
+          <p style="background: rgba(0,0,0,0.7); padding: 5px;">Početak: {{ video.scheduledDateTime | date:'medium' }}</p>
+          <div class="countdown" style="margin-top: 10px; font-weight: bold; background: rgba(0,0,0,0.7); padding: 5px;">⏳ Čekamo početak prenosa...</div>
+        </div>
+      </div>
 
-    <!-- Video Info -->
+      <div *ngIf="video.streamingStatus === 'LIVE' || video.streamingStatus === 'VOD' || !video.streamingStatus" class="player-container" style="width: 100%; position: relative;">
+        
+        <div *ngIf="video.streamingStatus === 'LIVE'" 
+             style="position: absolute; top: 20px; left: 20px; z-index: 10; display: flex; gap: 10px;">
+          
+          <div *ngIf="!isBehindLive" style="background: red; color: white; padding: 5px 10px; font-weight: bold; border-radius: 4px;">
+            🔴 UŽIVO
+          </div>
+
+          <button *ngIf="isBehindLive" 
+                  (click)="jumpToLive()"
+                  style="background: #333; color: white; border: 1px solid #555; padding: 5px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+             ⚪ Kasnite • Klikni za UŽIVO 🔴
+          </button>
+        </div>
+
+        <video 
+          #videoPlayer 
+          controls 
+          width="100%" 
+          [class.live-mode]="video.streamingStatus === 'LIVE'"
+          [attr.autoplay]="video.streamingStatus === 'LIVE' ? '' : null"
+          (seeking)="onSeeking()"
+          (ended)="onVideoEnded()"
+          (timeupdate)="checkLiveLag()"
+        >
+          <source [src]="'http://localhost:8080/uploads/' + video.videoUrl" type="video/mp4">
+          Vaš browser ne podržava video tag.
+        </video>
+      </div>
+
+    </div>
     <div class="video-info-section">
       <h1 class="video-title">{{ video.title }}</h1>
       
@@ -35,7 +70,6 @@
         </div>
       </div>
 
-      <!-- Owner Info -->
       <div class="owner-section">
         <div class="owner-info">
           <div class="avatar">
@@ -55,14 +89,12 @@
         </div>
       </div>
 
-      <!-- Description -->
       <div class="description-section" *ngIf="video.description">
         <h3>Opis</h3>
         <p class="description">{{ video.description }}</p>
       </div>
     </div>
 
-    <!-- Comments Section -->
     <div class="comments-section">
       <h2 class="comments-title">Komentari ({{ comments.length }})</h2>
 
@@ -86,9 +118,6 @@
           </div>
         </div>
       </div>
-
-
-      <!-- Placeholder ako nije ulogovan -->
 
       <div *ngIf="!isLoggedIn" class="comment-form-placeholder">
         <p class="auth-message">Prijavite se da biste ostavili komentar</p>
@@ -130,6 +159,13 @@
       <div *ngIf="!loadingComments && comments.length === 0" class="no-comments">
         <p>Nema komentara. Budite prvi koji će komentarisati!</p>
       </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && video && video.streamingStatus === 'LIVE'" class="chat-sidebar">
+    <app-chat *ngIf="showChat" [videoId]="video.id"></app-chat>
+    <div *ngIf="!isLoggedIn" class="chat-login-prompt">
+      <p>Prijavite se da biste učestvovali u chatu</p>
     </div>
   </div>
 </div>

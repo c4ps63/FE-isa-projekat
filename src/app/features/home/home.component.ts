@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { VideoService } from '../../core/services/video.service';
 import { Video } from '../../core/models/video.model';
 import { VideoCardComponent } from '../../shared/components/video-card/video-card.component';
+import { AuthService } from '../../core/services/auth.service';
 import { MapComponent } from '../../shared/components/map/map.component';
 
 @Component({
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
   @ViewChild(MapComponent) mapComponent!: MapComponent;
 
   videos: Video[] = [];
+  trendingVideos: Video[] = [];
   loading = true;
   error: string | null = null;
 
@@ -22,10 +24,18 @@ export class HomeComponent implements OnInit {
   pageSize = 12;
   selectedFilter: string = 'ALL';
 
-  constructor(private videoService: VideoService) {}
+  constructor(private videoService: VideoService, private authService: AuthService) {}
 
   ngOnInit(): void {
-
+    if (this.authService.isLoggedIn()) {
+      this.videoService.getTrendingVideos().subscribe({
+        next: (data) => {
+          this.trendingVideos = data;
+          console.log('Trending loaded:', data);
+        },
+        error: (err) => console.error('Failed to load trending videos', err)
+      });
+    }
   }
 
   updateVideoList(videosFromMap: Video[]) {

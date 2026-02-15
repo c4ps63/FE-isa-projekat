@@ -1,0 +1,53 @@
+<div class="chat-panel">
+  <div class="chat-header">
+    <span class="chat-title">Chat uživo</span>
+    <span class="chat-status" [class.online]="connected">
+      {{ connected ? 'Povezan' : 'Povezivanje...' }}
+    </span>
+  </div>
+
+  <div class="chat-messages" #messageContainer>
+    <div *ngFor="let msg of messages"
+         [ngClass]="{
+           'message-item': msg.type === 'CHAT',
+           'system-message': msg.type === 'JOIN' || msg.type === 'LEAVE'
+         }">
+
+      <ng-container *ngIf="msg.type === 'CHAT'">
+        <div class="message-avatar">
+          <img [src]="msg.senderAvatarUrl || 'assets/default-avatar.png'" [alt]="msg.senderUsername">
+        </div>
+        <div class="message-body">
+          <span class="message-username">{{ msg.senderUsername }}</span>
+          <span class="message-text">{{ msg.content }}</span>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="msg.type === 'JOIN' || msg.type === 'LEAVE'">
+        <span class="system-text">{{ msg.content }}</span>
+      </ng-container>
+    </div>
+
+    <div *ngIf="messages.length === 0" class="chat-empty">
+      Nema poruka. Budite prvi!
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <input
+      type="text"
+      [(ngModel)]="newMessage"
+      (keydown)="onKeyDown($event)"
+      placeholder="Pošaljite poruku..."
+      [disabled]="!connected"
+      maxlength="500"
+      class="chat-input"
+    />
+    <button
+      (click)="sendMessage()"
+      [disabled]="!connected || !newMessage.trim()"
+      class="chat-send-btn">
+      Pošalji
+    </button>
+  </div>
+</div>

@@ -13,6 +13,7 @@ export class VideoUploadComponent {
   selectedVideoFile: File | null = null;
   selectedThumbnailFile: File | null = null;
   videoDuration: number = 0;
+  minDate: string;
 
   isLoading = false;
   errorMessage = '';
@@ -22,20 +23,21 @@ export class VideoUploadComponent {
     private videoService: VideoService,
     private router: Router
   ) {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
+
     this.uploadForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(200)]],
       description: ['', [Validators.maxLength(2000)]],
       tags: [''], 
-      location: ['']
+      location: [''],
+      isScheduled: [false],
+      scheduledDate: [''],
+      scheduledTime: ['']
     });
   }
 
   private parseAddress(fullAddress: string): { street: string, number: string, city: string } {
-    // Regex objašnjenje:
-    // ^(.*?)\s+       -> Grupa 1 (Ulica): Bilo šta od početka do prvog razmaka ispred broja
-    // (\d+[a-zA-Z]?)  -> Grupa 2 (Broj): Cifre i opciono jedno slovo (npr. 12 ili 12a)
-    // [,\s]+          -> Separator: Zarez ili razmak
-    // (.*)$           -> Grupa 3 (Grad): Sve ostalo do kraja
     const regex = /^(.*?)\s+(\d+[a-zA-Z]?)[,\s]+(.*)$/;
     const match = fullAddress.match(regex);
 
@@ -52,6 +54,19 @@ export class VideoUploadComponent {
       number: '',
       city: fullAddress.trim()
     };
+  }
+
+  private isValidScheduleTime(date: string, time: string): boolean {
+    if (!date || !time) return false;
+
+    const scheduledDateTime = new Date(`${date}T${time}`);
+    const now = new Date();
+
+    if (scheduledDateTime <= now) {
+      return false;
+    }
+
+    return true;
   }
 
   onVideoSelected(event: any) {
@@ -89,6 +104,22 @@ export class VideoUploadComponent {
       return;
     }
 
+    const isScheduled = this.uploadForm.get('isScheduled')?.value;
+    const scheduledDate = this.uploadForm.get('scheduledDate')?.value;
+    const scheduledTime = this.uploadForm.get('scheduledTime')?.value;
+
+    if (isScheduled) {
+      if (!scheduledDate || !scheduledTime) {
+        this.errorMessage = 'Molimo unesite datum i vreme za zakazivanje.';
+        return;
+      }
+
+      if (!this.isValidScheduleTime(scheduledDate, scheduledTime)) {
+        this.errorMessage = 'Vreme zakazivanja mora biti u budućnosti!';
+        return;
+      }
+    }
+
     this.isLoading = true;
     this.errorMessage = '';
 
@@ -102,8 +133,8 @@ export class VideoUploadComponent {
         formData.append('street', parsed.street);
         formData.append('number', parsed.number);
         formData.append('city', parsed.city);
-        
-        console.log('Parsirana lokacija:', parsed); //debug
+
+        console.log('Parsirana lokacija:', parsed);
     } else {
         formData.append('street', '');
         formData.append('number', '');
@@ -112,13 +143,20 @@ export class VideoUploadComponent {
 
     const tagsString = this.uploadForm.get('tags')?.value;
     if (tagsString) {
-        
         formData.append('tags', tagsString); 
     } 
 
     formData.append('duration', this.videoDuration.toString());
     formData.append('videoFile', this.selectedVideoFile);
     formData.append('thumbnailFile', this.selectedThumbnailFile);
+
+    if (isScheduled && scheduledDate && scheduledTime) {
+      formData.append('isScheduled', 'true');
+      const scheduledDateTime = `${scheduledDate}T${scheduledTime}`;
+      formData.append('scheduledTime', scheduledDateTime);
+    } else {
+      formData.append('isScheduled', 'false');
+    }
 
     this.videoService.uploadVideo(formData).subscribe({
       next: (response) => {

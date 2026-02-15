@@ -34,4 +34,8 @@ export class VideoService {
   uploadVideo(formData: FormData): Observable<Video> {
     return this.http.post<Video>(this.apiUrl, formData);
   }
+
+  getTrendingVideos(): Observable<Video[]> {
+    return this.http.get<Video[]>('http://localhost:8080/api/trending');
+  }
 }

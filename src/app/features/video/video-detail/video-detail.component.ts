@@ -120,7 +120,11 @@ export class VideoDetailComponent implements OnInit {
       error: (err: any) => {
         console.error('Greska pri slanju komentara', err);
         this.submittingComment = false;
-        alert('Došlo je do greške pri slanju komentara.');
+        if (err.status === 429) {
+          alert('Prekoračili ste limit od 60 komentara po satu. Pokušajte ponovo kasnije.');
+        } else {
+          alert('Došlo je do greške pri slanju komentara.');
+        }
       }
     });
   }

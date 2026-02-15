@@ -4,7 +4,19 @@
   <div class="map-section">
     <app-map (videosFound)="updateVideoList($event)"></app-map>
   </div>
+
+ <div *ngIf="trendingVideos.length > 0" class="trending-container">
+  <div class="trending-header">
+    <h2 class="trending-title">Popularno ove nedelje</h2>
+  </div>
   
+  <div class="trending-horizontal-list">
+    <div *ngFor="let video of trendingVideos" class="trending-item">
+      <app-video-card [video]="video"></app-video-card>
+    </div>
+  </div>
+</div>
+
   <div class="section-header">
     <h1 class="page-title">Najnoviji videi</h1>
     

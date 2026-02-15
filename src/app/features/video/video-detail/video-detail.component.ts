@@ -29,6 +29,8 @@ export class VideoDetailComponent implements OnInit, OnDestroy {
   totalCommentPages = 0;
   commentPageSize = 5;
 
+  showChat = false;
+
   @ViewChild('videoPlayer') videoPlayerRef!: ElementRef<HTMLVideoElement>;
   initialLoadTime: number = 0;
   liveStartTimestamp: number = 0;
@@ -47,6 +49,7 @@ export class VideoDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe(loggedIn => {
       this.isLoggedIn = loggedIn;
+      this.showChat = this.isLoggedIn && this.video?.streamingStatus === 'LIVE';
       this.cdr.detectChanges();
     });
 
@@ -75,7 +78,8 @@ export class VideoDetailComponent implements OnInit, OnDestroy {
         const previousStatus = this.video?.streamingStatus;
         this.video = video;
         this.loading = false;
-        
+        this.showChat = this.isLoggedIn && this.video.streamingStatus === 'LIVE';
+
         if (this.video.streamingStatus === 'LIVE') {
             if (previousStatus !== 'LIVE') {
                 this.stopPolling(); 

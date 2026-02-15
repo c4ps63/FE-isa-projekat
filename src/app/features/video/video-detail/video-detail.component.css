@@ -600,3 +600,31 @@
 .btn-load-more:hover {
   background: #e0e0e0;
 }
+
+/* Chat Sidebar */
+.chat-sidebar {
+  position: sticky;
+  top: 80px;
+  height: calc(100vh - 120px);
+  min-height: 400px;
+}
+
+.chat-login-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border: 1px solid var(--border);
+  background: var(--secondary-bg);
+  padding: 20px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+@media (max-width: 991px) {
+  .chat-sidebar {
+    position: static;
+    height: 400px;
+  }
+}

@@ -223,7 +223,11 @@ export class VideoDetailComponent implements OnInit, OnDestroy {
       },
       error: (err: any) => {
         this.submittingComment = false;
-        alert('Došlo je do greške pri slanju komentara.');
+        if (err.status === 429) {
+          alert('Prekoračili ste limit od 60 komentara po satu. Pokušajte ponovo kasnije.');
+        } else {
+          alert('Došlo je do greške pri slanju komentara.');
+        }
       }
     });
   }

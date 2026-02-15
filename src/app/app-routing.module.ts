@@ -6,7 +6,7 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { VideoUploadComponent } from './features/video/video-upload/video-upload.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
-
+import { WatchPartyComponent } from './features/watch-party/watch-party.component';
 
 const routes: Routes = [
   {
@@ -32,6 +32,10 @@ const routes: Routes = [
   {
     path: 'profile/:username',
     component: ProfileComponent
+  },
+  {
+    path: 'watch-party',
+    component: WatchPartyComponent
   },
   {
     path: '**',

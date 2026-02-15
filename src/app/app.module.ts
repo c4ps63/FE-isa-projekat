@@ -16,6 +16,7 @@ import { VideoUploadComponent } from './features/video/video-upload/video-upload
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginComponent } from './features/auth/login/login.component';
 import { MapComponent } from './shared/components/map/map.component';
+import { WatchPartyComponent } from './features/watch-party/watch-party.component';
 import { ChatComponent } from './shared/components/chat/chat.component';
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ChatComponent } from './shared/components/chat/chat.component';
     VideoUploadComponent,
     LoginComponent,
     MapComponent,
+    WatchPartyComponent,
     ChatComponent
   ],
   imports: [

@@ -158,6 +158,21 @@
   background: var(--accent-hover);
 }
 
+.btn-watch-party {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-watch-party:hover {
+  background: var(--accent);
+  color: white;
+}
+
 .avatar-menu {
   cursor: pointer;
 }

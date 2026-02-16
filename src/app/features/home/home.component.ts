@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   updateVideoList(videosFromMap: Video[]) {
     this.loading = false;
     this.videos = videosFromMap;
-    this.totalPages = 1; 
+    this.totalPages = 1;
     if (this.videos.length === 0) {
     }
   }

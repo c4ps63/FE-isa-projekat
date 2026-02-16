@@ -73,7 +73,7 @@
         <div class="owner-info">
           <div class="avatar">
             <img 
-              [src]="video.owner.avatarUrl ? 'http://localhost:8080/uploads/' + video.owner.avatarUrl : 'assets/default-avatar.jpg'" 
+              [src]="video.owner.avatarUrl ? (video.owner.avatarUrl.startsWith('http') ? video.owner.avatarUrl : 'http://localhost:8080/uploads/' + video.owner.avatarUrl) : '/assets/default-avatar.jpg'" 
               [alt]="video.owner.username"
             />
           </div>
@@ -130,7 +130,7 @@
         <div *ngFor="let comment of comments" class="comment-item">
           <div class="comment-avatar">
             <img 
-              [src]="comment.author.avatarUrl ? 'http://localhost:8080/uploads/' + comment.author.avatarUrl : 'assets/default-avatar.jpg'" 
+              [src]="comment.author.avatarUrl ? (comment.author.avatarUrl.startsWith('http') ? comment.author.avatarUrl : 'http://localhost:8080/uploads/' + comment.author.avatarUrl) : '/assets/default-avatar.jpg'" 
               [alt]="comment.author.username"
             />
           </div>

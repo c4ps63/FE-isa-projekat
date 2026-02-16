@@ -30,6 +30,7 @@ export class VideoDetailComponent implements OnInit, OnDestroy {
   commentPageSize = 5;
 
   showChat = false;
+  private viewRegistered = false;
 
   @ViewChild('videoPlayer') videoPlayerRef!: ElementRef<HTMLVideoElement>;
   initialLoadTime: number = 0;
@@ -55,6 +56,7 @@ export class VideoDetailComponent implements OnInit, OnDestroy {
 
     this.route.params.subscribe(params => {
       const videoId = +params['id'];
+      this.viewRegistered = false;
       this.loadVideo(videoId);
       this.loadComments(videoId);
     });
@@ -78,6 +80,11 @@ export class VideoDetailComponent implements OnInit, OnDestroy {
         const previousStatus = this.video?.streamingStatus;
         this.video = video;
         this.loading = false;
+
+        if (!this.viewRegistered) {
+          this.viewRegistered = true;
+          this.videoService.registerView(video.id).subscribe();
+        }
         this.showChat = this.isLoggedIn && this.video.streamingStatus === 'LIVE';
 
         if (this.video.streamingStatus === 'LIVE') {

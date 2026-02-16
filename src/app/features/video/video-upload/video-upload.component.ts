@@ -152,8 +152,9 @@ export class VideoUploadComponent {
 
     if (isScheduled && scheduledDate && scheduledTime) {
       formData.append('isScheduled', 'true');
-      const scheduledDateTime = `${scheduledDate}T${scheduledTime}`;
-      formData.append('scheduledTime', scheduledDateTime);
+      const localDate = new Date(`${scheduledDate}T${scheduledTime}`);
+      const utcDateTime = localDate.toISOString().slice(0, 19);
+      formData.append('scheduledTime', utcDateTime);
     } else {
       formData.append('isScheduled', 'false');
     }

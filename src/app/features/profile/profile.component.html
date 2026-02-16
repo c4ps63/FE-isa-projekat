@@ -13,7 +13,7 @@
     <div class="profile-header">
       <div class="avatar-large">
         <img 
-          [src]="user.avatarUrl ? 'http://localhost:8080/uploads/' + user.avatarUrl : 'assets/default-avatar.jpg'"
+          [src]="user.avatarUrl ? (user.avatarUrl.startsWith('http') ? user.avatarUrl : 'http://localhost:8080/uploads/' + user.avatarUrl) : '/assets/default-avatar.jpg'"
           [alt]="user.username"
         />
       </div>

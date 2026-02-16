@@ -15,7 +15,7 @@
 
       <ng-container *ngIf="msg.type === 'CHAT'">
         <div class="message-avatar">
-          <img [src]="msg.senderAvatarUrl ? 'http://localhost:8080/uploads/' + msg.senderAvatarUrl : 'assets/default-avatar.jpg'" [alt]="msg.senderUsername">
+          <img [src]="msg.senderAvatarUrl ? 'http://localhost:8080/uploads/' + msg.senderAvatarUrl : '/assets/default-avatar.jpg'" [alt]="msg.senderUsername">
         </div>
         <div class="message-body">
           <span class="message-username">{{ msg.senderUsername }}</span>

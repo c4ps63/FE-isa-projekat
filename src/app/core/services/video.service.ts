@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Video, VideoPage } from '../models/video.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,6 +34,10 @@ export class VideoService {
   }
   uploadVideo(formData: FormData): Observable<Video> {
     return this.http.post<Video>(this.apiUrl, formData);
+  }
+
+  registerView(id: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/${id}/view`, {});
   }
 
   getTrendingVideos(): Observable<Video[]> {

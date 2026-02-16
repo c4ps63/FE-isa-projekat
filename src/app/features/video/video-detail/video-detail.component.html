@@ -12,28 +12,27 @@
     
     <div class="video-player-wrapper" style="position: relative; background: #000; width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center;">
       
-      <div *ngIf="video.streamingStatus === 'WAITING'" class="video-placeholder waiting" style="position: relative; width: 100%; height: 100%;">
-        <img [src]="'http://localhost:8080/uploads/' + video.thumbnailUrl" alt="Thumbnail" style="width: 100%; height: auto; opacity: 0.5;">
-        <div class="overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
-          <h2 style="font-size: 2em; text-transform: uppercase; background: rgba(0,0,0,0.7); padding: 10px;">Premijera Uskoro</h2>
-          <p style="background: rgba(0,0,0,0.7); padding: 5px;">Početak: {{ video.scheduledDateTime | date:'medium' }}</p>
-          <div class="countdown" style="margin-top: 10px; font-weight: bold; background: rgba(0,0,0,0.7); padding: 5px;">⏳ Čekamo početak prenosa...</div>
+      <div *ngIf="video.streamingStatus === 'WAITING'" class="video-placeholder waiting">
+        <img [src]="'http://localhost:8080/uploads/' + video.thumbnailUrl" alt="Thumbnail">
+        <div class="overlay">
+          <h2>Premijera Uskoro</h2>
+          <p>Početak: {{ video.scheduledDateTime | date:'medium' }}</p>
+          <div class="countdown">Čekamo početak prenosa...</div>
         </div>
       </div>
 
       <div *ngIf="video.streamingStatus === 'LIVE' || video.streamingStatus === 'VOD' || !video.streamingStatus" class="player-container" style="width: 100%; position: relative;">
         
-        <div *ngIf="video.streamingStatus === 'LIVE'" 
-             style="position: absolute; top: 20px; left: 20px; z-index: 10; display: flex; gap: 10px;">
+        <div *ngIf="video.streamingStatus === 'LIVE'" class="live-overlay">
           
-          <div *ngIf="!isBehindLive" style="background: red; color: white; padding: 5px 10px; font-weight: bold; border-radius: 4px;">
+          <div *ngIf="!isBehindLive" class="live-badge">
             🔴 UŽIVO
           </div>
 
           <button *ngIf="isBehindLive" 
-                  (click)="jumpToLive()"
-                  style="background: #333; color: white; border: 1px solid #555; padding: 5px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-             ⚪ Kasnite • Klikni za UŽIVO 🔴
+                  class="live-button"
+                  (click)="jumpToLive()">
+            ⚪ UŽIVO 
           </button>
         </div>
 
@@ -74,7 +73,7 @@
         <div class="owner-info">
           <div class="avatar">
             <img 
-              [src]="video.owner.avatarUrl || 'assets/default-avatar.png'" 
+              [src]="video.owner.avatarUrl ? 'http://localhost:8080/uploads/' + video.owner.avatarUrl : 'assets/default-avatar.jpg'" 
               [alt]="video.owner.username"
             />
           </div>
@@ -131,7 +130,7 @@
         <div *ngFor="let comment of comments" class="comment-item">
           <div class="comment-avatar">
             <img 
-              [src]="comment.author.avatarUrl || 'assets/default-avatar.png'" 
+              [src]="comment.author.avatarUrl ? 'http://localhost:8080/uploads/' + comment.author.avatarUrl : 'assets/default-avatar.jpg'" 
               [alt]="comment.author.username"
             />
           </div>

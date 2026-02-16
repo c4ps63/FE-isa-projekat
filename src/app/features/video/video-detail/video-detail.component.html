@@ -9,15 +9,49 @@
   </div>
 
   <div *ngIf="!loading && video" class="video-content">
-    <!-- Video Player -->
-    <div class="video-player">
-      <video controls width="100%">
-        <source [src]="'http://localhost:8080/uploads/' + video.videoUrl" type="video/mp4">
-        Vaš browser ne podržava video tag.
-      </video>
-    </div>
+    
+    <div class="video-player-wrapper" style="position: relative; background: #000; width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center;">
+      
+      <div *ngIf="video.streamingStatus === 'WAITING'" class="video-placeholder waiting">
+        <img [src]="'http://localhost:8080/uploads/' + video.thumbnailUrl" alt="Thumbnail">
+        <div class="overlay">
+          <h2>Premijera Uskoro</h2>
+          <p>Početak: {{ video.scheduledDateTime | date:'medium' }}</p>
+          <div class="countdown">Čekamo početak prenosa...</div>
+        </div>
+      </div>
 
-    <!-- Video Info -->
+      <div *ngIf="video.streamingStatus === 'LIVE' || video.streamingStatus === 'VOD' || !video.streamingStatus" class="player-container" style="width: 100%; position: relative;">
+        
+        <div *ngIf="video.streamingStatus === 'LIVE'" class="live-overlay">
+          
+          <div *ngIf="!isBehindLive" class="live-badge">
+            🔴 UŽIVO
+          </div>
+
+          <button *ngIf="isBehindLive" 
+                  class="live-button"
+                  (click)="jumpToLive()">
+            ⚪ UŽIVO 
+          </button>
+        </div>
+
+        <video 
+          #videoPlayer 
+          controls 
+          width="100%" 
+          [class.live-mode]="video.streamingStatus === 'LIVE'"
+          [attr.autoplay]="video.streamingStatus === 'LIVE' ? '' : null"
+          (seeking)="onSeeking()"
+          (ended)="onVideoEnded()"
+          (timeupdate)="checkLiveLag()"
+        >
+          <source [src]="'http://localhost:8080/uploads/' + video.videoUrl" type="video/mp4">
+          Vaš browser ne podržava video tag.
+        </video>
+      </div>
+
+    </div>
     <div class="video-info-section">
       <h1 class="video-title">{{ video.title }}</h1>
       
@@ -35,12 +69,11 @@
         </div>
       </div>
 
-      <!-- Owner Info -->
       <div class="owner-section">
         <div class="owner-info">
           <div class="avatar">
             <img 
-              [src]="video.owner.avatarUrl || 'assets/default-avatar.png'" 
+              [src]="video.owner.avatarUrl ? (video.owner.avatarUrl.startsWith('http') ? video.owner.avatarUrl : 'http://localhost:8080/uploads/' + video.owner.avatarUrl) : '/assets/default-avatar.jpg'" 
               [alt]="video.owner.username"
             />
           </div>
@@ -55,14 +88,12 @@
         </div>
       </div>
 
-      <!-- Description -->
       <div class="description-section" *ngIf="video.description">
         <h3>Opis</h3>
         <p class="description">{{ video.description }}</p>
       </div>
     </div>
 
-    <!-- Comments Section -->
     <div class="comments-section">
       <h2 class="comments-title">Komentari ({{ comments.length }})</h2>
 
@@ -87,9 +118,6 @@
         </div>
       </div>
 
-
-      <!-- Placeholder ako nije ulogovan -->
-
       <div *ngIf="!isLoggedIn" class="comment-form-placeholder">
         <p class="auth-message">Prijavite se da biste ostavili komentar</p>
       </div>
@@ -102,7 +130,7 @@
         <div *ngFor="let comment of comments" class="comment-item">
           <div class="comment-avatar">
             <img 
-              [src]="comment.author.avatarUrl || 'assets/default-avatar.png'" 
+              [src]="comment.author.avatarUrl ? (comment.author.avatarUrl.startsWith('http') ? comment.author.avatarUrl : 'http://localhost:8080/uploads/' + comment.author.avatarUrl) : '/assets/default-avatar.jpg'" 
               [alt]="comment.author.username"
             />
           </div>
@@ -130,6 +158,13 @@
       <div *ngIf="!loadingComments && comments.length === 0" class="no-comments">
         <p>Nema komentara. Budite prvi koji će komentarisati!</p>
       </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && video && video.streamingStatus === 'LIVE'" class="chat-sidebar">
+    <app-chat *ngIf="showChat" [videoId]="video.id"></app-chat>
+    <div *ngIf="!isLoggedIn" class="chat-login-prompt">
+      <p>Prijavite se da biste učestvovali u chatu</p>
     </div>
   </div>
 </div>

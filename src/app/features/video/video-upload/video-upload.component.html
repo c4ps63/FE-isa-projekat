@@ -2,7 +2,7 @@
   <h2 class="page-title">Nova Objava</h2>
 
   <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="upload-form">
-    
+
     <div class="form-group">
       <label for="title">Naslov videa *</label>
       <input 
@@ -50,6 +50,47 @@
       </div>
     </div>
 
+    <div class="schedule-section" [class.active]="uploadForm.get('isScheduled')?.value">
+      <div class="schedule-toggle">
+        <input 
+          type="checkbox" 
+          id="isScheduled" 
+          formControlName="isScheduled"
+          class="schedule-checkbox"
+        >
+        <label for="isScheduled" class="schedule-label">
+          Zakaži premijeru (Live Stream)
+        </label>
+      </div>
+
+      <div *ngIf="uploadForm.get('isScheduled')?.value" class="schedule-input-wrapper">
+        <div class="datetime-group">
+          <div class="form-group">
+            <label for="scheduledDate">Datum početka:</label>
+            <input 
+              id="scheduledDate" 
+              type="date" 
+              formControlName="scheduledDate"
+              class="datetime-input"
+              [min]="minDate"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="scheduledTime">Vreme početka (24h format):</label>
+            <input 
+              id="scheduledTime" 
+              type="time" 
+              formControlName="scheduledTime"
+              class="datetime-input"
+              step="60"
+            >
+          </div>
+        </div>
+        <small style="color: #666; display: block; margin-top: 10px;">Video neće biti dostupan za gledanje pre ovog vremena.</small>
+      </div>
+    </div>
+
     <div class="file-uploads">
       <div class="form-group file-box">
         <label>Video Fajl (MP4, max 200MB) *</label>
@@ -60,7 +101,7 @@
           class="file-input"
         >
         <div class="file-status" *ngIf="selectedVideoFile">
-           ✅ Izabran: {{ selectedVideoFile.name }}
+            Izabran: {{ selectedVideoFile.name }}
         </div>
       </div>
 
@@ -73,7 +114,7 @@
           class="file-input"
         >
         <div class="file-status" *ngIf="selectedThumbnailFile">
-            ✅ Izabran: {{ selectedThumbnailFile.name }}
+             Izabran: {{ selectedThumbnailFile.name }}
          </div>
       </div>
     </div>

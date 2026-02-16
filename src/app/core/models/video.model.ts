@@ -15,6 +15,10 @@ export interface Video {
   tags?: string[];
   latitude?: number;
   longitude?: number;
+  isScheduled?: boolean;
+  scheduledDateTime?: string;
+  currentOffset?: number;     
+  streamingStatus?: string;
 }
 
 export interface VideoPage {

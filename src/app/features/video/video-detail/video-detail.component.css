@@ -367,3 +367,341 @@
 .btn-like .icon {
   font-size: 18px;
 }
+
+.video-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 992px) {
+  .video-detail-container {
+      grid-template-columns: 3fr 1fr;
+  }
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.video-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.video-player-wrapper {
+  width: 100%;
+  background: black;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.video-player video {
+  display: block;
+  width: 100%;
+  max-height: 80vh;
+}
+
+
+.video-info-section {
+  padding: 30px 10px; /* Increased vertical padding */
+  margin-bottom: 30px;
+}
+
+.video-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.video-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.meta-left {
+  color: #666;
+  font-size: 0.9rem;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-like {
+  background: none;
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-like:hover {
+  background: var(--secondary-bg);
+}
+
+.icon.liked {
+  filter: drop-shadow(0 0 2px red);
+}
+
+.owner-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.owner-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.avatar img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.owner-name {
+  margin: 0;
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.owner-name:hover {
+  text-decoration: underline;
+}
+
+.owner-bio {
+  margin: 2px 0 0 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.description-section {
+  background: var(--secondary-bg);
+  border: 1px solid var(--border);
+  padding: 15px;
+  border-radius: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-top: 20px;
+}
+
+.description-section h3 {
+  margin-top: 0;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.comments-section {
+  margin-top: 20px;
+}
+
+.comment-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  resize: none;
+  font-family: inherit;
+}
+
+.comment-input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--border);
+}
+
+.btn-submit-comment {
+  align-self: flex-end;
+  padding: 8px 16px;
+  background: #065fd4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-submit-comment:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.comment-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.comment-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.comment-header {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+
+.comment-author {
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.comment-date {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.comment-text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.btn-load-more {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #333;
+  margin-top: 10px;
+}
+
+.btn-load-more:hover {
+  background: #e0e0e0;
+}
+
+/* Video Player Overlays */
+.video-placeholder.waiting {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.video-placeholder img {
+  width: 100%;
+  height: auto;
+  opacity: 0.5;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.overlay h2 {
+  font-size: 2em;
+  text-transform: uppercase;
+  background: rgba(45, 10, 94, 0.8);
+  padding: 10px;
+  border-radius: 4px;
+  margin: 0;
+}
+
+.overlay p {
+  background: rgba(45, 10, 94, 0.8);
+  padding: 5px;
+  border-radius: 4px;
+  margin: 5px 0;
+}
+
+.overlay .countdown {
+  margin-top: 10px;
+  font-weight: bold;
+  background: rgba(45, 10, 94, 0.8);
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.live-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+}
+
+.live-badge {
+  background: var(--error);
+  color: white;
+  padding: 8px 12px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  white-space: nowrap;
+}
+
+.live-button {
+  background: var(--secondary-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: background 0.2s;
+  font-weight: bold;
+  font-size: 14px;
+  height: 32px;
+  white-space: nowrap;
+}
+
+.live-button:hover {
+  background: var(--primary-bg);
+}
+
+@media (max-width: 991px) {
+  .chat-sidebar {
+    position: static;
+    height: 400px;
+  }
+}

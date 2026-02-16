@@ -1,0 +1,70 @@
+<div class="watch-party-container">
+  <h1 class="page-title">Watch Party</h1>
+
+  <!-- Before joining a room -->
+  <div *ngIf="!watchPartyService.inRoom" class="lobby">
+    <div class="lobby-section">
+      <h2>Kreiraj sobu</h2>
+      <p>Kreiraj novu Watch Party sobu i podijeli kod sa prijateljima.</p>
+      <button class="btn-primary" (click)="createRoom()">Kreiraj sobu</button>
+    </div>
+
+    <div class="divider">ili</div>
+
+    <div class="lobby-section">
+      <h2>Pridruzi se</h2>
+      <p>Unesi kod sobe da se priduzis postojecem Watch Party-ju.</p>
+      <div class="join-form">
+        <input
+          type="text"
+          [(ngModel)]="joinCode"
+          placeholder="Unesi kod sobe (npr. ABC123)"
+          maxlength="6"
+          class="code-input"
+          (keyup.enter)="joinRoom()">
+        <button class="btn-primary" (click)="joinRoom()">Pridruzi se</button>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+  </div>
+
+  <!-- Inside a room -->
+  <div *ngIf="watchPartyService.inRoom && watchPartyService.activeRoom" class="room">
+    <div class="room-header">
+      <div class="room-info">
+        <h2>Soba: <span class="room-code">{{ watchPartyService.activeRoom.roomCode }}</span></h2>
+        <button class="btn-copy" (click)="copyCode()">
+          {{ codeCopied ? 'Kopirano!' : 'Kopiraj kod' }}
+        </button>
+      </div>
+      <div class="room-meta">
+        <span>Kreator: {{ watchPartyService.activeRoom.creator.username }}</span>
+        <span *ngIf="watchPartyService.isCreator" class="badge">Ti si vlasnik</span>
+      </div>
+      <button class="btn-leave" (click)="leaveRoom()">
+        {{ watchPartyService.isCreator ? 'Zatvori sobu' : 'Napusti sobu' }}
+      </button>
+    </div>
+
+    <!-- Creator view: video list -->
+    <div *ngIf="watchPartyService.isCreator" class="video-list">
+      <h3>Izaberi video za pustanje:</h3>
+      <div class="video-grid">
+        <div *ngFor="let video of videos" class="video-item" (click)="playVideo(video.id)">
+          <img [src]="'http://localhost:8080/uploads/' + video.thumbnailUrl" [alt]="video.title" class="video-thumb">
+          <div class="video-info">
+            <span class="video-title">{{ video.title }}</span>
+            <span class="video-owner">{{ video.owner.username }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Member view: waiting -->
+    <div *ngIf="!watchPartyService.isCreator" class="waiting">
+      <div class="waiting-icon">&#9654;</div>
+      <p>Cekanje da vlasnik pusti video...</p>
+    </div>
+  </div>
+</div>

@@ -13,7 +13,7 @@
     <div class="video-player-wrapper" style="position: relative; background: #000; width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center;">
       
       <div *ngIf="video.streamingStatus === 'WAITING'" class="video-placeholder waiting">
-        <img [src]="'http://localhost:8080/uploads/' + video.thumbnailUrl" alt="Thumbnail">
+        <img [src]="uploadsUrl + video.thumbnailUrl" alt="Thumbnail">
         <div class="overlay">
           <h2>Premijera Uskoro</h2>
           <p>Početak: {{ video.scheduledDateTime | date:'medium' }}</p>
@@ -46,7 +46,7 @@
           (ended)="onVideoEnded()"
           (timeupdate)="checkLiveLag()"
         >
-          <source [src]="'http://localhost:8080/uploads/' + video.videoUrl" type="video/mp4">
+          <source [src]="uploadsUrl + video.videoUrl" type="video/mp4">
           Vaš browser ne podržava video tag.
         </video>
       </div>
@@ -73,7 +73,7 @@
         <div class="owner-info">
           <div class="avatar">
             <img 
-              [src]="video.owner.avatarUrl ? (video.owner.avatarUrl.startsWith('http') ? video.owner.avatarUrl : 'http://localhost:8080/uploads/' + video.owner.avatarUrl) : '/assets/default-avatar.jpg'" 
+              [src]="video.owner.avatarUrl ? (video.owner.avatarUrl.startsWith('http') ? video.owner.avatarUrl : uploadsUrl + video.owner.avatarUrl) : '/assets/default-avatar.jpg'" 
               [alt]="video.owner.username"
             />
           </div>
@@ -130,7 +130,7 @@
         <div *ngFor="let comment of comments" class="comment-item">
           <div class="comment-avatar">
             <img 
-              [src]="comment.author.avatarUrl ? (comment.author.avatarUrl.startsWith('http') ? comment.author.avatarUrl : 'http://localhost:8080/uploads/' + comment.author.avatarUrl) : '/assets/default-avatar.jpg'" 
+              [src]="comment.author.avatarUrl ? (comment.author.avatarUrl.startsWith('http') ? comment.author.avatarUrl : uploadsUrl + comment.author.avatarUrl) : '/assets/default-avatar.jpg'" 
               [alt]="comment.author.username"
             />
           </div>

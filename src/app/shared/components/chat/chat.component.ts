@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewCh
 import { ChatService } from '../../../core/services/chat.service';
 import { ChatMessage } from '../../../core/models/chat-message.model';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-chat',
@@ -9,6 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
+  uploadsUrl = environment.apiUrl + '/uploads/';
   @Input() videoId!: number;
   @ViewChild('messageContainer') messageContainer!: ElementRef;
 

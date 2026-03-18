@@ -9,6 +9,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class HeaderComponent implements OnInit, DoCheck {
   isAuthenticated = false;
+  menuOpen = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -24,9 +25,18 @@ export class HeaderComponent implements OnInit, DoCheck {
     this.isAuthenticated = this.authService.isLoggedIn();
   }
 
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu(): void {
+    this.menuOpen = false;
+  }
+
   logout(): void {
     this.authService.logout();
     this.isAuthenticated = false;
+    this.menuOpen = false;
     this.router.navigate(['/login']);
   }
 }

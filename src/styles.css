@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 /* CSS Reset i Base Styles */
 * {
   margin: 0;
@@ -12,25 +14,49 @@
   margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+  .app-container {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 8px 12px;
+  }
+}
+
 :root {
-  /* Tamno ljubičasta tema */
-  --primary-bg: #1a0033;
-  --secondary-bg: #2d0a5e;
-  --accent: #7b2cbf;
-  --accent-hover: #9d4edd;
-  --text-primary: #e0d1f5;
-  --text-secondary: #b8a6d6;
-  --border: #4a1a7d;
-  --error: #d62839;
+  /* Kick-style: crna, siva, drecava ljubicasta */
+  --primary-bg: #0f0f0f;
+  --secondary-bg: #272727;
+  --card-bg: #1a1a1a;
+  --section-bg: #181818;
+  --input-bg: #121212;
+  --accent: #9147ff;
+  --accent-hover: #a970ff;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --border: #2a2a2a;
+  --error: #ff4444;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--primary-bg);
   color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 a {
@@ -44,7 +70,7 @@ button {
 
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -52,9 +78,16 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent);
+  background: #333;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-hover);
+  background: var(--accent);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: white;
 }

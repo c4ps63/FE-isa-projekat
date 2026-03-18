@@ -4,14 +4,15 @@ import { Observable, Subject } from 'rxjs';
 import { WatchParty } from '../models/watch-party.model';
 import { Client, IMessage } from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WatchPartyService {
 
-  private apiUrl = 'http://localhost:8080/api/watch-party';
-  private wsUrl = 'http://localhost:8080/ws';
+  private apiUrl = `${environment.apiUrl}/api/watch-party`;
+  private wsUrl = `${environment.apiUrl}/ws`;
 
   private stompClient: Client | null = null;
   private videoPlaySubject = new Subject<number>();

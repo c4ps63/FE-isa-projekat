@@ -1,45 +1,52 @@
 .register-container {
   max-width: 480px;
   margin: 80px auto;
-  padding: 32px;
-  background: var(--secondary-bg);
+  padding: 40px;
+  background: var(--section-bg);
   border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .register-container h2 {
-  margin: 0 0 24px 0;
+  margin: 0 0 28px 0;
   text-align: center;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.3px;
 }
 
 /* Form */
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 label {
   display: block;
   margin-bottom: 6px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 input {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 14px;
   font-size: 14px;
   border: 1px solid var(--border);
-  background: var(--primary-bg);
+  background: var(--input-bg);
   color: var(--text-primary);
   outline: none;
-  transition: none; 
+  border-radius: var(--radius-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(145, 71, 255, 0.15);
 }
 
 /* Button */
@@ -53,12 +60,14 @@ button {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: none; 
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
 }
 
 button:hover {
   background: var(--accent-hover);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(145, 71, 255, 0.3);
 }
 
 /* Error text */
@@ -71,7 +80,7 @@ button:hover {
 
 /* Bottom link */
 .register-container p {
-  margin-top: 20px;
+  margin-top: 24px;
   text-align: center;
   font-size: 14px;
   color: var(--text-secondary);
@@ -81,13 +90,45 @@ button:hover {
   color: var(--accent);
   font-weight: 600;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .register-container a:hover {
+  color: var(--accent-hover);
   text-decoration: underline;
 }
 
 .register-container input {
-  background-color: white !important;
-  color: black;
+  background-color: var(--input-bg) !important;
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .register-container {
+    margin: 40px 16px;
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-container {
+    margin: 24px 12px;
+    padding: 24px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .register-container h2 {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  input {
+    padding: 14px 12px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 14px;
+    font-size: 15px;
+  }
 }

@@ -5,6 +5,7 @@ import { Video } from '../../../core/models/video.model';
 import { TileCluster } from '../../../core/models/tile-cluster.model';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-map',
@@ -150,7 +151,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
          <div style="border-top:1px solid #ddd; padding-top:8px;">
            <small>Najpopularniji:</small><br>
            <b>${video.title}</b><br>
-           <img src="http://localhost:8080/uploads/${video.thumbnailUrl}" style="width:100px; margin-top:5px;"><br>
+           <img src="${environment.apiUrl}/uploads/${video.thumbnailUrl}" style="width:100px; margin-top:5px;"><br>
            <small>${video.viewCount} pregleda</small>
          </div>
        </div>
@@ -167,7 +168,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       const popupContent = `
          <div style="text-align:center">
            <b>${video.title}</b><br>
-           <img src="http://localhost:8080/uploads/${video.thumbnailUrl}" style="width:100px; margin-top:5px;">
+           <img src="${environment.apiUrl}/uploads/${video.thumbnailUrl}" style="width:100px; margin-top:5px;">
          </div>
       `;
 

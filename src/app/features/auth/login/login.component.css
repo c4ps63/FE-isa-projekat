@@ -1,51 +1,58 @@
 .login-container {
   max-width: 420px;
   margin: 80px auto;
-  padding: 32px;
-  background: var(--secondary-bg);
+  padding: 40px;
+  background: var(--section-bg);
   border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .login-container h2 {
-  margin: 0 0 24px 0;
+  margin: 0 0 28px 0;
   text-align: center;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.3px;
 }
 
 /* Form */
 .form-group {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 label {
   display: block;
   margin-bottom: 6px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .form-control {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 14px;
   font-size: 14px;
   border: 1px solid var(--border);
-  background: var(--primary-bg);
+  background: var(--input-bg);
   color: var(--text-primary);
   outline: none;
-  transition: none; 
+  border-radius: var(--radius-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-control:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(145, 71, 255, 0.15);
 }
 
 /* Button */
 button {
   width: 100%;
-  margin-top: 12px;
+  margin-top: 16px;
   padding: 12px;
   border: none;
   background: var(--accent);
@@ -53,12 +60,14 @@ button {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: none;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
 }
 
 button:hover:not(:disabled) {
   background: var(--accent-hover);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(145, 71, 255, 0.3);
 }
 
 button:disabled {
@@ -76,9 +85,41 @@ button:disabled {
 
 .alert-error {
   margin-bottom: 16px;
-  padding: 10px;
+  padding: 12px;
   font-size: 13px;
   text-align: center;
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(255, 68, 68, 0.08);
   color: var(--error);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 68, 68, 0.2);
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    margin: 40px 16px;
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    margin: 24px 12px;
+    padding: 24px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .login-container h2 {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  .form-control {
+    padding: 14px 12px;
+    font-size: 16px; /* prevents iOS zoom */
+  }
+
+  button {
+    padding: 14px;
+    font-size: 15px;
+  }
 }

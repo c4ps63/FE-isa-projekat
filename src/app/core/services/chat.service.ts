@@ -4,6 +4,7 @@ import { Client, IMessage } from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import { ChatMessage } from '../models/chat-message.model';
 import { AuthService } from './auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class ChatService {
     if (!token) return;
 
     this.stompClient = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8080/ws'),
+      webSocketFactory: () => new SockJS(`${environment.apiUrl}/ws`),
       connectHeaders: {
         Authorization: `Bearer ${token}`
       },

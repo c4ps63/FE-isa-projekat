@@ -1,0 +1,7 @@
+{
+  "buildCommand": "npx ng build --configuration production",
+  "outputDirectory": "dist/isa-frontend",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

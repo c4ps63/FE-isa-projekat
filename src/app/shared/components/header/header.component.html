@@ -1,6 +1,6 @@
 <header class="header">
   <div class="header-container">
-    
+
     <div class="header-left">
       <a routerLink="/" class="logo">
         <span class="logo-icon">▶</span>
@@ -8,8 +8,9 @@
       </a>
     </div>
 
-    <div class="header-right">
-      
+    <!-- Desktop nav -->
+    <div class="header-right desktop-nav">
+
       <div *ngIf="!isAuthenticated" class="auth-buttons">
         <button class="btn-outline" routerLink="/login">
           Prijavi se
@@ -19,22 +20,61 @@
         </button>
       </div>
 
-
-      <div *ngIf="isAuthenticated" class="user-menu" style="display: flex; align-items: center; gap: 10px;">
+      <div *ngIf="isAuthenticated" class="user-menu">
         <button class="btn-upload" routerLink="/upload">
           + Upload
         </button>
         <button class="btn-watch-party" routerLink="/watch-party">
           Watch Party
         </button>
-        
-
-        <button class="btn-outline" (click)="logout()" style="margin-left: 5px;">
+        <button class="btn-outline" (click)="logout()">
           Odjavi se
         </button>
-
       </div>
 
     </div>
+
+    <!-- Hamburger button (mobile only) -->
+    <button class="hamburger" (click)="toggleMenu()" [class.active]="menuOpen">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
   </div>
 </header>
+
+<!-- Backdrop overlay -->
+<div class="mobile-backdrop" [class.open]="menuOpen" (click)="closeMenu()"></div>
+
+<!-- Dropdown drawer below navbar -->
+<div class="mobile-drawer" [class.open]="menuOpen">
+  <nav class="drawer-nav">
+
+    <ng-container *ngIf="!isAuthenticated">
+      <a routerLink="/login" class="drawer-link" (click)="closeMenu()">
+        <span class="drawer-icon icon-sm">→</span> Prijavi se
+      </a>
+      <a routerLink="/register" class="drawer-link" (click)="closeMenu()">
+        <span class="drawer-icon icon-sm">→</span> Registruj se
+      </a>
+    </ng-container>
+
+    <ng-container *ngIf="isAuthenticated">
+      <a routerLink="/" class="drawer-link" (click)="closeMenu()">
+        <span class="drawer-icon icon-lg">⌂</span> Početna
+      </a>
+      <a routerLink="/upload" class="drawer-link" (click)="closeMenu()">
+        <span class="drawer-icon icon-lg">+</span> Upload
+      </a>
+      <a routerLink="/watch-party" class="drawer-link" (click)="closeMenu()">
+        <span class="drawer-icon">▶</span> Watch Party
+      </a>
+      <div class="drawer-divider"></div>
+      <a class="drawer-link logout" (click)="logout(); closeMenu()">
+        <span class="drawer-icon">⏻</span> Odjavi se
+      </a>
+    </ng-container>
+
+  </nav>
+</div>

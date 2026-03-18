@@ -6,6 +6,7 @@ import { VideoService } from '../../core/services/video.service';
 import { User } from '../../core/models/user.model';
 import { Video } from '../../core/models/video.model';
 import { VideoCardComponent } from '../../shared/components/video-card/video-card.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,7 @@ import { VideoCardComponent } from '../../shared/components/video-card/video-car
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  uploadsUrl = environment.apiUrl + '/uploads/';
   user: User | null = null;
   videos: Video[] = [];
   loading = true;

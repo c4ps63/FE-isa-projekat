@@ -6,37 +6,42 @@
 
 .page-title {
   color: var(--text-primary);
-  font-size: 28px;
-  margin-bottom: 32px;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  letter-spacing: -0.3px;
 }
 
 .lobby {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .lobby-section {
-  background: var(--secondary-bg);
+  background: var(--section-bg);
   border: 1px solid var(--border);
-  padding: 24px;
+  border-radius: var(--radius-lg);
+  padding: 28px;
 }
 
 .lobby-section h2 {
   color: var(--text-primary);
   margin-bottom: 8px;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .lobby-section p {
   color: var(--text-secondary);
   margin-bottom: 16px;
+  font-size: 14px;
 }
 
 .divider {
   text-align: center;
   color: var(--text-secondary);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -47,48 +52,57 @@
 }
 
 .code-input {
-  background: var(--primary-bg);
-  border: 2px solid var(--border);
+  background: var(--input-bg);
+  border: 1px solid var(--border);
   color: var(--text-primary);
-  padding: 10px 16px;
+  padding: 12px 16px;
   font-size: 16px;
   letter-spacing: 3px;
   text-transform: uppercase;
   width: 220px;
   outline: none;
   font-family: monospace;
+  border-radius: var(--radius-sm);
+  transition: border-color 0.2s ease;
 }
 
 .code-input:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(145, 71, 255, 0.15);
 }
 
 .btn-primary {
   background: var(--accent);
   border: none;
   color: white;
-  padding: 10px 24px;
+  padding: 12px 24px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
   background: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
 .error-message {
-  color: #ff4444;
-  background: rgba(255, 68, 68, 0.1);
-  border: 1px solid rgba(255, 68, 68, 0.3);
+  color: var(--error);
+  background: rgba(255, 68, 68, 0.08);
+  border: 1px solid rgba(255, 68, 68, 0.2);
   padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
 }
 
 /* Room */
 .room-header {
-  background: var(--secondary-bg);
+  background: var(--section-bg);
   border: 1px solid var(--border);
-  padding: 24px;
+  border-radius: var(--radius-lg);
+  padding: 28px;
   margin-bottom: 24px;
 }
 
@@ -96,28 +110,33 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .room-info h2 {
   color: var(--text-primary);
   margin: 0;
+  font-size: 20px;
 }
 
 .room-code {
   color: var(--accent);
   font-family: monospace;
-  font-size: 24px;
+  font-size: 22px;
   letter-spacing: 3px;
+  font-weight: 700;
 }
 
 .btn-copy {
   background: transparent;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 6px 14px;
+  padding: 6px 16px;
   font-size: 13px;
   cursor: pointer;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
 .btn-copy:hover {
@@ -127,56 +146,68 @@
 
 .room-meta {
   color: var(--text-secondary);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   display: flex;
   gap: 12px;
   align-items: center;
+  font-size: 14px;
 }
 
 .badge {
   background: var(--accent);
   color: white;
-  padding: 2px 10px;
-  font-size: 12px;
+  padding: 3px 12px;
+  font-size: 11px;
   font-weight: 600;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .btn-leave {
-  background: #ff4444;
+  background: var(--error);
   border: none;
   color: white;
   padding: 8px 20px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
 }
 
 .btn-leave:hover {
-  background: #cc3333;
+  background: #cc2222;
+  transform: translateY(-1px);
 }
 
 /* Video list */
 .video-list h3 {
   color: var(--text-primary);
   margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
+  gap: 14px;
 }
 
 .video-item {
-  background: var(--secondary-bg);
+  background: var(--card-bg);
   border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   cursor: pointer;
   overflow: hidden;
-  transition: border-color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .video-item:hover {
   border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(145, 71, 255, 0.15);
 }
 
 .video-thumb {
@@ -187,7 +218,7 @@
 }
 
 .video-info {
-  padding: 10px;
+  padding: 10px 12px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -195,7 +226,7 @@
 
 .video-title {
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
@@ -214,7 +245,7 @@
 }
 
 .waiting-icon {
-  font-size: 64px;
+  font-size: 56px;
   color: var(--accent);
   margin-bottom: 16px;
   animation: pulse 2s infinite;
@@ -227,10 +258,23 @@
 
 .waiting p {
   color: var(--text-secondary);
-  font-size: 18px;
+  font-size: 16px;
 }
 
 @media (max-width: 768px) {
+  .watch-party-container {
+    padding: 24px 16px;
+  }
+
+  .page-title {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+
+  .lobby-section {
+    padding: 20px;
+  }
+
   .join-form {
     flex-direction: column;
     align-items: stretch;
@@ -238,9 +282,88 @@
 
   .code-input {
     width: 100%;
+    text-align: center;
+    font-size: 18px;
+    padding: 14px;
+  }
+
+  .btn-primary {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .room-header {
+    padding: 20px;
+  }
+
+  .room-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .room-code {
+    font-size: 20px;
+  }
+
+  .room-meta {
+    flex-wrap: wrap;
+    font-size: 13px;
   }
 
   .video-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+  }
+
+  .waiting {
+    padding: 60px 0;
+  }
+
+  .waiting-icon {
+    font-size: 44px;
+  }
+
+  .waiting p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .watch-party-container {
+    padding: 16px 12px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .lobby-section {
+    padding: 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .lobby-section h2 {
+    font-size: 16px;
+  }
+
+  .lobby-section p {
+    font-size: 13px;
+  }
+
+  .room-header {
+    padding: 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .btn-leave {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
 }

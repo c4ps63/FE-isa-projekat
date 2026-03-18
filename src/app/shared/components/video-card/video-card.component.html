@@ -1,6 +1,6 @@
 <div class="video-card" [routerLink]="['/video', video.id]">
   <div class="thumbnail-container">
-    <img [src]="'http://localhost:8080/uploads/' + video.thumbnailUrl" alt="Thumbnail" class="thumbnail">
+    <img [src]="uploadsUrl + video.thumbnailUrl" alt="Thumbnail" class="thumbnail">
     <span class="duration">{{ video.duration | duration }}</span>
   </div>
   

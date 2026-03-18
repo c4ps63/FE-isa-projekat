@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Video, VideoPage } from '../models/video.model';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
-  private apiUrl = 'http://localhost:8080/api/videos';
+  private apiUrl = `${environment.apiUrl}/api/videos`;
 
   constructor(private http: HttpClient) {}
 
@@ -41,6 +42,6 @@ export class VideoService {
   }
 
   getTrendingVideos(): Observable<Video[]> {
-    return this.http.get<Video[]>('http://localhost:8080/api/trending');
+    return this.http.get<Video[]>(`${environment.apiUrl}/api/trending`);
   }
 }

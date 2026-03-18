@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Video } from '../models/video.model';
 import { TileCluster } from '../models/tile-cluster.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
-  private apiUrl = 'http://localhost:8080/api/videos';
+  private apiUrl = `${environment.apiUrl}/api/videos`;
 
   // Zoom nivoi za razlicite prikaze (moraju odgovarati backend vrijednostima)
   static readonly HIGH_ZOOM_THRESHOLD = 12;

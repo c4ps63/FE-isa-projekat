@@ -52,7 +52,7 @@
       <h3>Izaberi video za pustanje:</h3>
       <div class="video-grid">
         <div *ngFor="let video of videos" class="video-item" (click)="playVideo(video.id)">
-          <img [src]="'http://localhost:8080/uploads/' + video.thumbnailUrl" [alt]="video.title" class="video-thumb">
+          <img [src]="uploadsUrl + video.thumbnailUrl" [alt]="video.title" class="video-thumb">
           <div class="video-info">
             <span class="video-title">{{ video.title }}</span>
             <span class="video-owner">{{ video.owner.username }}</span>

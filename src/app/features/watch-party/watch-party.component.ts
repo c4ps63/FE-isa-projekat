@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { WatchPartyService } from '../../core/services/watch-party.service';
 import { VideoService } from '../../core/services/video.service';
 import { Video, VideoPage } from '../../core/models/video.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-watch-party',
@@ -11,6 +12,7 @@ import { Video, VideoPage } from '../../core/models/video.model';
   styleUrls: ['./watch-party.component.css']
 })
 export class WatchPartyComponent implements OnInit, OnDestroy {
+  uploadsUrl = environment.apiUrl + '/uploads/';
 
   joinCode: string = '';
   videos: Video[] = [];

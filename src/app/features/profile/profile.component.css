@@ -1,5 +1,5 @@
 .profile-container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 32px 24px;
 }
@@ -10,38 +10,45 @@
   color: var(--text-secondary);
 }
 
-/* Spinner uklonjen animacija */
 .spinner {
-  width: 48px;
-  height: 48px;
-  border: 4px solid var(--border);
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
   border-top-color: var(--accent);
+  border-radius: 50%;
   margin: 0 auto 16px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .error {
   color: var(--error);
-  font-size: 18px;
+  font-size: 16px;
 }
 
 /* Profile Header */
 .profile-header {
-  background: var(--secondary-bg);
+  background: var(--section-bg);
   border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   padding: 40px;
   display: flex;
   gap: 32px;
   align-items: center;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
 }
 
 .avatar-large {
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   overflow: hidden;
   flex-shrink: 0;
-  border: 4px solid var(--text-primary);
-;
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(145, 71, 255, 0.2);
 }
 
 .avatar-large img {
@@ -55,20 +62,21 @@
 }
 
 .username {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 8px 0;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.3px;
 }
 
 .email {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--text-secondary);
   margin: 0 0 12px 0;
 }
 
 .bio {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.6;
   margin: 0 0 20px 0;
@@ -77,34 +85,35 @@
 
 .meta-item {
   display: flex;
-  align-items: center; 
-  gap: 6px; 
-  font-size: 16px;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
   color: var(--text-secondary);
 }
 
 .meta-label {
   letter-spacing: 0.5px;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--text-secondary);
 }
 
 .meta-value {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--accent);
 }
 
 /* Videos Section */
 .videos-section {
-  margin-top: 48px;
+  margin-top: 40px;
 }
 
 .section-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 32px 0;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.3px;
 }
 
 .loading-videos {
@@ -113,19 +122,20 @@
   color: var(--text-secondary);
 }
 
-/* Spinner small uklonjen animacija */
 .spinner-small {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border: 3px solid var(--border);
   border-top-color: var(--accent);
+  border-radius: 50%;
   margin: 0 auto 16px;
+  animation: spin 0.8s linear infinite;
 }
 
 .videos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
   margin-bottom: 48px;
 }
 
@@ -133,32 +143,35 @@
   text-align: center;
   padding: 64px 24px;
   color: var(--text-secondary);
-  background: var(--secondary-bg);
+  background: var(--section-bg);
   border: 1px solid var(--border);
+  border-radius: var(--radius-md);
 }
 
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  margin-top: 48px;
+  gap: 20px;
+  margin-top: 40px;
 }
 
 .btn-pagination {
   background: var(--accent);
   color: white;
   border: none;
-  padding: 12px 24px;
-  font-size: 16px;
+  padding: 10px 24px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: none; /* animacija uklonjena */
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
 }
 
 .btn-pagination:hover:not(:disabled) {
   background: var(--accent-hover);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(145, 71, 255, 0.3);
 }
 
 .btn-pagination:disabled {
@@ -168,23 +181,28 @@
 
 .page-info {
   color: var(--text-secondary);
-  font-size: 16px;
+  font-size: 14px;
 }
 
 @media (max-width: 768px) {
+  .profile-container {
+    padding: 20px 16px;
+  }
+
   .profile-header {
     flex-direction: column;
     text-align: center;
-    padding: 24px;
+    padding: 24px 20px;
+    margin-bottom: 28px;
   }
 
   .avatar-large {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
   }
 
   .username {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .profile-meta {
@@ -192,7 +210,66 @@
   }
 
   .videos-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  .section-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .videos-section {
+    margin-top: 28px;
+  }
+
+  .pagination {
+    gap: 12px;
+  }
+
+  .btn-pagination {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 16px 12px;
+  }
+
+  .profile-header {
+    padding: 20px 16px;
+    gap: 20px;
+    border-radius: var(--radius-md);
+  }
+
+  .avatar-large {
+    width: 80px;
+    height: 80px;
+  }
+
+  .username {
+    font-size: 20px;
+  }
+
+  .email, .bio {
+    font-size: 13px;
+  }
+
+  .no-videos {
+    padding: 40px 16px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .page-info {
+    width: 100%;
+    text-align: center;
+    order: -1;
+    font-size: 13px;
   }
 }

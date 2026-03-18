@@ -7,8 +7,9 @@ import { CommentService } from '../../../core/services/comment.service';
 import { LikeService } from '../../../core/services/like.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Video } from '../../../core/models/video.model';
-import { Comment as AppComment } from '../../../core/models/comment.model'; 
+import { Comment as AppComment } from '../../../core/models/comment.model';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-video-detail',
@@ -16,6 +17,7 @@ import { DurationPipe } from '../../../shared/pipes/duration.pipe';
   styleUrls: ['./video-detail.component.css']
 })
 export class VideoDetailComponent implements OnInit, OnDestroy {
+  uploadsUrl = environment.apiUrl + '/uploads/';
   video: Video | null = null;
   comments: AppComment[] = []; 
   loading = true;

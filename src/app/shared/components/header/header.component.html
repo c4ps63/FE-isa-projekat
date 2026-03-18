@@ -3,7 +3,7 @@
 
     <div class="header-left">
       <a routerLink="/" class="logo">
-        <span class="logo-icon">▶</span>
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
         <span class="logo-text">Jutjubić</span>
       </a>
     </div>
@@ -68,11 +68,11 @@
         <span class="drawer-icon icon-lg">+</span> Upload
       </a>
       <a routerLink="/watch-party" class="drawer-link" (click)="closeMenu()">
-        <span class="drawer-icon">▶</span> Watch Party
+        <svg class="drawer-svg-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg> Watch Party
       </a>
       <div class="drawer-divider"></div>
       <a class="drawer-link logout" (click)="logout(); closeMenu()">
-        <span class="drawer-icon">⏻</span> Odjavi se
+        <svg class="drawer-svg-icon logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Odjavi se
       </a>
     </ng-container>
 

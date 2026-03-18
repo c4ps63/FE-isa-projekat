@@ -34,9 +34,10 @@
 }
 
 .logo-icon {
-  font-size: 28px;
+  width: 26px;
+  height: 26px;
   color: var(--accent);
-  -webkit-text-fill-color: var(--accent);
+  flex-shrink: 0;
 }
 
 .logo-text {
@@ -201,7 +202,8 @@
   }
 
   .logo-icon {
-    font-size: 24px;
+    width: 22px;
+    height: 22px;
   }
 
   .logo-text {
@@ -294,11 +296,22 @@
     font-size: 16px;
   }
 
+  .drawer-svg-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
   .drawer-link.logout {
     color: var(--error);
   }
 
   .drawer-link.logout .drawer-icon {
+    color: var(--error);
+  }
+
+  .drawer-link.logout .logout-icon {
     color: var(--error);
   }
 

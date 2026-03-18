@@ -284,8 +284,11 @@
   .drawer-icon {
     font-size: 16px;
     width: 22px;
-    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--accent);
+    flex-shrink: 0;
   }
 
   .drawer-icon.icon-lg {
